@@ -870,7 +870,7 @@
 
   <div class="card" data-name="деоген диоген">
     <div class="card-head"><div class="ghost-name">Деоген</div><div class="sanity"><span>40%</span></div></div>
-    <div class="clues"><span class="clue">Радиоприёмник</span><span class="clue">Записи в блокноте</span><span class="clue">Лазерный проектор</span></div>
+    <div class="clues"><span class="clue required">Радиоприёмник</span><span class="clue">Записи в блокноте</span><span class="clue">Лазерный проектор</span></div>
     <div class="card-body">
       <div class="info-line">Скорость меняется от расстояния до игрока</div>
       <div class="info-line">Всегда знает где игрок</div>
@@ -1221,7 +1221,7 @@ function applyClueFilter() {
   document.getElementById('match-num').textContent = matchCount;
 }
 
-const REQUIRED_GHOSTS = new Set(['обакэ обаке', 'ханту', 'горё горе', 'морой']);
+const REQUIRED_GHOSTS = new Set(['обакэ обаке', 'ханту', 'горё горе', 'морой', 'деоген диоген']);
 let requiredActive = false;
 
 function toggleRequired() {
