@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phasmophobia — Шпаргалка</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0d10;
+    --surface: #111418;
+    --surface2: #181c22;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.14);
+    --text: #e8eaf0;
+    --muted: #636875;
+    --accent: #7c9eff;
+    --accent2: #c084fc;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --purple: #a78bfa;
+    --teal: #2dd4bf;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(124,158,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,158,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-1, .glow-2 {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
+  }
+  .glow-1 { width: 500px; height: 500px; background: var(--accent2); top: -200px; left: -150px; }
+  .glow-2 { width: 400px; height: 400px; background: var(--accent); bottom: -150px; right: -100px; }
+
+  /* HEADER */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11,13,16,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border-bright);
+    padding: 0 24px;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0 0;
+    flex-wrap: wrap;
+  }
+
+  .title-block { flex: 1; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+
+  h1 {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #e8eaf0 0%, #a5b4fc 60%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .search-row {
+    padding: 8px 0 4px;
+  }
+
+  .search-wrap {
+    position: relative;
+    display: inline-block;
+  }
+  #search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 4px;
+    display: none;
+    line-height: 1;
+  }
+  #search-clear:hover { color: var(--text); }
+  #search {
+    background: var(--surface);
+    border: 0.5px solid var(--border-bright);
+    border-radius: 10px;
+
+    padding: 10px 32px 10px 16px;
+    font-size: 14px;
+    font-family: 'Syne', sans-serif;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    width: clamp(160px, 20vw, 260px);
+  }
+  #search:focus { border-color: var(--accent); }
+  #search::placeholder { color: var(--muted); }
+
+  #search-feature-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 2px 4px;
+    display: none;
+    line-height: 1;
+  }
+  #search-feature-clear:hover { color: var(--text); }
+  #search-feature {
+    background: var(--surface);
+    border: 0.5px solid var(--border-bright);
+    border-radius: 10px;
+    padding: 10px 32px 10px 16px;
+    font-size: 14px;
+    font-family: 'Syne', sans-serif;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    width: clamp(160px, 20vw, 260px);
+  }
+  #search-feature:focus { border-color: var(--accent2); }
+  #search-feature::placeholder { color: var(--muted); }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    padding-top: 10px;
+  }
+
+  .tab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    user-select: none;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    padding: 28px 24px 80px;
+  }
+
+  /* GHOST GRID */
+  .ghost-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 10px;
+  }
+
+  @media (min-width: 1200px) {
+    .ghost-grid { grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
+  }
+
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border-bright);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .card:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
+  .card.hidden { display: none; }
+
+  .card-head {
+    padding: 12px 14px 10px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 0.5px solid var(--border);
+    gap: 6px;
+  }
+
+  .ghost-name {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .sanity {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 1;
+  }
+  .sanity span { color: var(--amber); }
+
+  .clues {
+    padding: 8px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .clue.clue-orb {
+    background: rgba(168,85,247,0.15);
+    color: #c084fc;
+    border-color: rgba(168,85,247,0.35);
+  }
+  .clue.required {
+    background: rgba(248,113,113,0.15);
+    color: var(--red);
+    border-color: rgba(248,113,113,0.4);
+  }
+
+  .clue {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 5px;
+    background: rgba(124,158,255,0.10);
+    color: var(--accent);
+    border: 0.5px solid rgba(124,158,255,0.25);
+  }
+
+  .card-body {
+    padding: 10px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .info-line {
+    font-size: 13px;
+    color: #9ca3b8;
+    line-height: 1.45;
+  }
+
+  .speed-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    padding: 2px 6px;
+    border-radius: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .speed-badge.slow   { background: rgba(45,212,191,0.12); color: var(--teal);   border: 0.5px solid rgba(45,212,191,0.3); }
+  .speed-badge.normal { background: rgba(124,158,255,0.12); color: var(--accent); border: 0.5px solid rgba(124,158,255,0.3); }
+  .speed-badge.fast   { background: rgba(251,191,36,0.12); color: var(--amber);  border: 0.5px solid rgba(251,191,36,0.3); }
+  .speed-badge.vfast  { background: rgba(248,113,113,0.12); color: var(--red);   border: 0.5px solid rgba(248,113,113,0.3); }
+  .speed-badge.special{ background: rgba(167,139,250,0.12); color: var(--purple);border: 0.5px solid rgba(167,139,250,0.3); }
+
+  #no-results {
+    display: none;
+    text-align: center;
+    color: var(--muted);
+    padding: 60px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    grid-column: 1/-1;
+  }
+
+  /* STATS */
+  .stats {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border-bright);
+    border-radius: 12px;
+    padding: 12px 18px;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stat-value span { color: var(--accent); font-size: 12px; font-weight: 400; }
+
+  /* FILTER BUTTONS */
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .filter-btn {
+    background: var(--surface);
+    border: 0.5px solid var(--border-bright);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+  .filter-btn.active { color: #0b0d10; font-weight: 700; }
+  .filter-btn[data-tier="all"].active    { background: var(--text); border-color: var(--text); }
+  .filter-btn[data-tier="slow"].active   { background: var(--teal); border-color: var(--teal); }
+  .filter-btn[data-tier="normal"].active { background: var(--accent); border-color: var(--accent); }
+  .filter-btn[data-tier="fast"].active   { background: var(--amber); border-color: var(--amber); }
+  .filter-btn[data-tier="vfast"].active  { background: var(--red); border-color: var(--red); }
+  .filter-btn[data-tier="special"].active{ background: var(--purple); border-color: var(--purple); }
+
+  /* TABLE */
+  .table-wrap {
+    border: 0.5px solid var(--border-bright);
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  thead th {
+    background: var(--surface2);
+    padding: 12px 18px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 0.5px solid var(--border-bright);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 0.5px solid var(--border);
+    transition: background 0.15s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody tr.hidden { display: none; }
+
+  td { padding: 12px 18px; vertical-align: middle; line-height: 1.5; }
+
+  .td-name { font-weight: 700; font-size: 15px; color: var(--text); white-space: nowrap; }
+  .td-base { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 14px; color: var(--accent); }
+  .td-range { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+  .td-note { font-size: 12px; color: #8b90a0; line-height: 1.6; max-width: 340px; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+  .badge::before { content:''; width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+  .badge.slow    { background:rgba(45,212,191,0.12);  color:var(--teal); }
+  .badge.slow::before { background:var(--teal); }
+  .badge.normal  { background:rgba(124,158,255,0.12); color:var(--accent); }
+  .badge.normal::before { background:var(--accent); }
+  .badge.fast    { background:rgba(251,191,36,0.12);  color:var(--amber); }
+  .badge.fast::before { background:var(--amber); }
+  .badge.vfast   { background:rgba(248,113,113,0.12); color:var(--red); }
+  .badge.vfast::before { background:var(--red); }
+  .badge.special { background:rgba(167,139,250,0.12); color:var(--purple); }
+  .badge.special::before { background:var(--purple); }
+
+  .speed-empty {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .footer-note {
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* TWO-COLUMN LAYOUT */
+  .main-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* CLUE PANEL */
+  .clue-panel {
+    position: sticky;
+    top: 110px;
+    background: var(--surface);
+    border: 0.5px solid var(--border-bright);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .clue-panel-header {
+    padding: 12px 16px 10px;
+    border-bottom: 0.5px solid var(--border-bright);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .clue-panel-header button {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .clue-panel-header button:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+
+  .clue-btn-list {
+    padding: 10px 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .clue-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 0.5px solid var(--border-bright);
+    background: var(--surface2);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+    width: 100%;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    user-select: none;
+    position: relative;
+  }
+  .clue-btn:hover { border-color: rgba(255,255,255,0.22); color: var(--text); }
+
+  .clue-btn.confirmed {
+    background: rgba(52, 211, 153, 0.12);
+    border-color: rgba(52, 211, 153, 0.45);
+    color: var(--green);
+  }
+  .clue-btn.ruled-out {
+    background: rgba(248, 113, 113, 0.08);
+    border-color: rgba(248, 113, 113, 0.3);
+    color: var(--red);
+    opacity: 0.7;
+  }
+
+  .clue-btn .clue-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.05);
+  }
+  .clue-btn.confirmed .clue-icon { background: rgba(52,211,153,0.15); }
+  .clue-btn.ruled-out .clue-icon { background: rgba(248,113,113,0.1); }
+
+  .clue-btn .clue-state {
+    margin-left: auto;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    flex-shrink: 0;
+  }
+
+  .clue-btn.confirmed .clue-state::after { content: '✓'; color: var(--green); }
+  .clue-btn.ruled-out .clue-state::after { content: '✗'; color: var(--red); }
+
+  .match-count {
+    padding: 8px 16px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    border-top: 0.5px solid var(--border);
+    text-align: center;
+  }
+  .match-count span { color: var(--accent); font-weight: 600; }
+
+  /* highlight matching cards */
+  .card.clue-match { border-color: rgba(124,158,255,0.4); }
+  .card.clue-eliminated { opacity: 0.25; filter: grayscale(0.5); }
+
+  @media (max-width: 900px) {
+    .main-layout { grid-template-columns: 1fr; }
+    .clue-panel { position: static; }
+    .clue-btn-list { flex-direction: row; flex-wrap: wrap; }
+    .clue-btn { width: auto; flex: 1 1 140px; }
+  }
+
+  @media (max-width: 700px) {
+    .site-header { padding: 0 12px; }
+    .wrapper { padding: 20px 12px 60px; }
+    #search { width: 100%; }
+    .td-note { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-1"></div>
+<div class="glow-2"></div>
+
+<div class="site-header">
+  <div class="header-inner">
+    <div class="title-block">
+      <div class="eyebrow">// phasmophobia</div>
+      <h1>Шпаргалка</h1>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <div class="stats">
+    <div class="stat-card"><div class="stat-label">Всего призраков</div><div class="stat-value">27 <span>типов</span></div></div>
+    <div class="stat-card"><div class="stat-label">Базовая скорость</div><div class="stat-value">1.7 <span>м/с</span></div></div>
+    <div class="stat-card"><div class="stat-label">Максимальная</div><div class="stat-value">3.71 <span>м/с (Морой)</span></div></div>
+    <div class="stat-card"><div class="stat-label">Скорость игрока</div><div class="stat-value">1.6 <span>м/с</span></div></div>
+    <div class="stat-card"><div class="stat-label">Спринт игрока</div><div class="stat-value">3.0 <span>м/с · 3 сек</span></div></div>
+  </div>
+  <div class="main-layout">
+  <div class="left-col">
+  <div class="controls">
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="Поиск призрака..." autocomplete="off">
+      <button id="search-clear" onclick="clearSearch()" title="Сбросить">✕</button>
+    </div>
+    <div class="search-wrap">
+      <input type="text" id="search-feature" placeholder="Поиск по особенностям..." autocomplete="off">
+      <button id="search-feature-clear" onclick="clearFeatureSearch()" title="Сбросить">✕</button>
+    </div>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-tier="all"     onclick="setTier('all')">Все</button>
+      <button class="filter-btn" data-tier="slow"    onclick="setTier('slow')">Медленные</button>
+      <button class="filter-btn" data-tier="normal"  onclick="setTier('normal')">Обычные</button>
+      <button class="filter-btn" data-tier="vfast"   onclick="setTier('vfast')">Быстрые</button>
+      <button class="filter-btn" data-tier="special" onclick="setTier('special')">Особые</button>
+    </div>
+  </div>
+<div class="ghost-grid" id="grid">
+
+  <div class="card" data-name="дух">
+    <div class="card-head"><div class="ghost-name">Дух</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">ЭМП (ур.5)</span><span class="clue">Радиоприёмник</span><span class="clue">Записи в блокноте</span></div>
+    <div class="card-body"><div class="info-line">Благовоние остановит его охоту на 3 минуты</div></div>
+  </div>
+
+  <div class="card" data-name="мираж">
+    <div class="card-head"><div class="ghost-name">Мираж</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">ЭМП (ур.5)</span><span class="clue">Радиоприёмник</span><span class="clue">Лазерный проектор</span></div>
+    <div class="card-body">
+      <div class="info-line">Не наступает на соль</div>
+      <div class="info-line">ТПшится к игроку и меняет комнату</div>
+      <div class="info-line">Во время ТП оставляет УФ следы</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="фантом">
+    <div class="card-head"><div class="ghost-name">Фантом</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Радиоприёмник</span><span class="clue">Ультрафиолет</span><span class="clue">Лазерный проектор</span></div>
+    <div class="card-body">
+      <div class="info-line">Исчезает на фото</div>
+      <div class="info-line">Во время охоты появляется редко</div>
+      <div class="info-line">Оставляет ЭМП след в комнате и идёт к тебе</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="полтергейст">
+    <div class="card-head"><div class="ghost-name">Полтергейст</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Радиоприёмник</span><span class="clue">Ультрафиолет</span><span class="clue">Записи в блокноте</span></div>
+    <div class="card-body">
+      <div class="info-line">Кидает сразу несколько вещей</div>
+      <div class="info-line">Кидая вещи снижает рассудок</div>
+      <div class="info-line">Кидает вещи дальше обычного</div>
+      <div class="info-line">Кидание вещей похоже на резкий взрыв</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="банши">
+    <div class="card-head"><div class="ghost-name">Банши</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Лазерный проектор</span><span class="clue">Ультрафиолет</span><span class="clue">Призрачный огонёк</span></div>
+    <div class="card-body">
+      <div class="info-line">Преследует одного игрока</div>
+      <div class="info-line">Кричит в микрофон (33% шанс)</div>
+      <div class="info-line">Охотится по рассудку цели</div>
+      <div class="info-line">Всегда женская моделька</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="джинн">
+    <div class="card-head"><div class="ghost-name">Джинн</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Минусовая температура</span><span class="clue">Ультрафиолет</span><span class="clue">ЭМП (ур.5)</span></div>
+    <div class="card-body">
+      <div class="info-line">Никогда не выключает генератор, часто включает сам</div>
+      <div class="info-line">Когда видит игрока — кратковременный буст скорости</div>
+      <div class="info-line">При включённом гене даёт ивенты снижающие рассудок на 25%</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="мара">
+    <div class="card-head"><div class="ghost-name">Мара</div><div class="sanity"><span>40% / 60%</span></div></div>
+    <div class="clues"><span class="clue">Призрачный огонёк</span><span class="clue">Радиоприёмник</span><span class="clue">Записи в блокноте</span></div>
+    <div class="card-body">
+      <div class="info-line">Не может включить свет</div>
+      <div class="info-line">С маленьким шансом может несколько раз подряд вырубить свет в комнате после включения</div>
+      <div class="info-line">Чаще других выключает свет и генератор</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="ревенант рева">
+    <div class="card-head"><div class="ghost-name">Ревенант</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Призрачный огонёк</span><span class="clue">Минусовая температура</span><span class="clue">Записи в блокноте</span></div>
+    <div class="card-body">
+      <div class="info-line">Если видит игрока — бежит очень быстро</div>
+      <div class="info-line">Если не видит игрока — бежит еле еле</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="тень">
+    <div class="card-head"><div class="ghost-name">Тень</div><div class="sanity"><span>35%</span></div></div>
+    <div class="clues"><span class="clue">Записи в блокноте</span><span class="clue">ЭМП (ур.5)</span><span class="clue">Минусовая температура</span></div>
+    <div class="card-body">
+      <div class="info-line">Меньше всех активничает</div>
+      <div class="info-line">Не нападёт если рядом пара игроков</div>
+      <div class="info-line">Активничает когда ты не в комнате</div>
+      <div class="info-line">Можно вычеркнуть Тень, если гост эвент поющий</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="демон">
+    <div class="card-head"><div class="ghost-name">Демон</div><div class="sanity"><span>70%</span></div></div>
+    <div class="clues"><span class="clue">Ультрафиолет</span><span class="clue">Записи в блокноте</span><span class="clue">Минусовая температура</span></div>
+    <div class="card-body">
+      <div class="info-line">Распятие работает дальше в 1,5 раза, чем с другими сущностями</div>
+      <div class="info-line">Завоняйте призрака благовонием и включайте секундомер. Большинство призраков начнут охоту через 90 секунд, а демон — через 60 секунд.</div>
+      <div class="info-line">Способностью может напасть даже со 100% рассудка</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="юрэй юрай">
+    <div class="card-head"><div class="ghost-name">Юрэй</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Призрачный огонёк</span><span class="clue">Лазерный проектор</span><span class="clue">Минусовая температура</span></div>
+    <div class="card-body">
+      <div class="info-line">Благовоние запрещает ему выходить из комнаты</div>
+      <div class="info-line">Может полностью закрыть дверь (до щелчка)</div>
+      <div class="info-line">Быстро снижает рассудок на атаках</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="они">
+    <div class="card-head"><div class="ghost-name">Они</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Минусовая температура</span><span class="clue">ЭМП (ур.5)</span><span class="clue">Лазерный проектор</span></div>
+    <div class="card-body">
+      <div class="info-line">Чаще виден силуэт на охоте</div>
+      <div class="info-line">Не даёт гост-ивент с облачком</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="ёкай екай">
+    <div class="card-head"><div class="ghost-name">Ёкай</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Радиоприёмник</span><span class="clue">Призрачный огонёк</span><span class="clue">Лазерный проектор</span></div>
+    <div class="card-body">
+      <div class="info-line">Если с ним говорить — может напасть с 80% рассудка</div>
+      <div class="info-line">Во время охоты слышит всего на 2 метра вокруг себя</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="ханту">
+    <div class="card-head"><div class="ghost-name">Ханту</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Ультрафиолет</span><span class="clue">Призрачный огонёк</span><span class="clue required">Минусовая температура</span></div>
+    <div class="card-body">
+      <div class="info-line">Не может включить генератор</div>
+      <div class="info-line">Во время охоты дышит паром</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="горё горе">
+    <div class="card-head"><div class="ghost-name">Горё</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">ЭМП (ур.5)</span><span class="clue">Ультрафиолет</span><span class="clue required">Лазерный проектор</span></div>
+    <div class="card-body">
+      <div class="info-line">Проекцию видно только на камеру</div>
+      <div class="info-line">Не меняет комнату</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="мюлинг">
+    <div class="card-head"><div class="ghost-name">Мюлинг</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">ЭМП (ур.5)</span><span class="clue">Ультрафиолет</span><span class="clue">Записи в блокноте</span></div>
+    <div class="card-body">
+      <div class="info-line">Шаги на охоте слышно только тогда, когда призрак в 12 метрах от тебя</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="онрё онре">
+    <div class="card-head"><div class="ghost-name">Онрё</div><div class="sanity"><span>60%</span></div></div>
+    <div class="clues"><span class="clue">Радиоприёмник</span><span class="clue">Призрачный огонёк</span><span class="clue">Минусовая температура</span></div>
+    <div class="card-body">
+      <div class="info-line">Не нападает если есть огонь и чаще тушит свечи</div>
+      <div class="info-line">Потушила три свечки и сразу начинается охота</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="близнецы">
+    <div class="card-head"><div class="ghost-name">Близнецы</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">ЭМП (ур.5)</span><span class="clue">Радиоприёмник</span><span class="clue">Минусовая температура</span></div>
+    <div class="card-body">
+      <div class="info-line">Один двигается чуть медленнее, второй быстрее на 10 %</div>
+      <div class="info-line">Если вы увидели ломанную линию активности, то это Близнецы. Ведь их взаимодействие накладывается друг на друга</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="райдзю">
+    <div class="card-head"><div class="ghost-name">Райдзю</div><div class="sanity"><span>50% / 65%</span></div></div>
+    <div class="clues"><span class="clue">ЭМП (ур.5)</span><span class="clue">Лазерный проектор</span><span class="clue">Призрачный огонёк</span></div>
+    <div class="card-body">
+      <div class="info-line">Сильно ускоряется от электроприборов</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="обакэ обаке">
+    <div class="card-head"><div class="ghost-name">Обакэ</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue required">Ультрафиолет</span><span class="clue">Призрачный огонёк</span><span class="clue">ЭМП (ур.5)</span></div>
+    <div class="card-body">
+      <div class="info-line">Может иногда не оставить отпечаток на двери</div>
+      <div class="info-line">Иногда оставляет шестипалый отпечаток</div>
+      <div class="info-line">Меняет модельку на охоте</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="мимик">
+    <div class="card-head"><div class="ghost-name">Мимик</div><div class="sanity"><span>?%</span></div></div>
+    <div class="clues"><span class="clue">Ультрафиолет</span><span class="clue clue-orb">Призрачный огонёк</span><span class="clue">Радиоприёмник</span><span class="clue">Минусовая температура</span></div>
+    <div class="card-body">
+      <div class="info-line">Рядом с ним всегда летает призрачный огонёк как 4-я улика</div>
+      <div class="info-line">Копирует силу других призраков</div>
+      <div class="info-line">Огонёк может появиться не сразу</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="морой">
+    <div class="card-head"><div class="ghost-name">Морой</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue required">Радиоприёмник</span><span class="clue">Записи в блокноте</span><span class="clue">Минусовая температура</span></div>
+    <div class="card-body">
+      <div class="info-line">Благовоние вводит в ступор Мороя на 7 сек (у других — 5)</div>
+      <div class="info-line">⬇ Проклинает через радиоприёмник ⬇</div>
+      <div class="info-line">(Пассивное снижение рассудка игрока ускоряется вдвое)</div>
+      <div class="info-line">Скорость зависит от среднего рассудка</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="деоген диоген">
+    <div class="card-head"><div class="ghost-name">Деоген</div><div class="sanity"><span>40%</span></div></div>
+    <div class="clues"><span class="clue">Радиоприёмник</span><span class="clue">Записи в блокноте</span><span class="clue">Лазерный проектор</span></div>
+    <div class="card-body">
+      <div class="info-line">Скорость меняется от расстояния до игрока</div>
+      <div class="info-line">Всегда знает где игрок</div>
+      <div class="info-line">Иногда тяжело дышит в радиоприёмник</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="тайэ тайе">
+    <div class="card-head"><div class="ghost-name">Тайэ</div><div class="sanity"><span>75%</span></div></div>
+    <div class="clues"><span class="clue">Записи в блокноте</span><span class="clue">Лазерный проектор</span><span class="clue">Призрачный огонёк</span></div>
+    <div class="card-body">
+      <div class="info-line">Со временем стареет, замедляется</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="дайан">
+    <div class="card-head"><div class="ghost-name">Дайан</div><div class="sanity"><span>50%</span></div></div>
+    <div class="clues"><span class="clue">Ультрафиолет</span><span class="clue">Минусовая температура</span><span class="clue">Лазерный проектор</span></div>
+    <div class="card-body">
+      <div class="info-line">Ускоряется если игрок двигается (танцует)</div>
+      <div class="info-line">Теряет силу если стоят на месте</div>
+      <div class="info-line">Всегда женская моделька</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="галлу">
+    <div class="card-head"><div class="ghost-name">Галлу</div><div class="sanity">норм: <span>50%</span> / ярость: <span>60%</span> / слабость: <span>40%</span></div></div>
+    <div class="clues"><span class="clue">ЭМП (ур.5)</span><span class="clue">Призрачный огонёк</span><span class="clue">Записи в блокноте</span></div>
+    <div class="card-body">
+      <div class="info-line">Становится злее когда против него защищаются</div>
+      <div class="info-line">После ярости истощается — защита снова работает</div>
+      <div class="info-line">Первый раз наступает в соль, в последующие нет</div>
+    </div>
+  </div>
+
+  <div class="card" data-name="обамбо">
+    <div class="card-head"><div class="ghost-name">Обамбо</div><div class="sanity">спокойный: <span>10%</span> / агрессивный: <span>65%</span></div></div>
+    <div class="clues"><span class="clue">Записи в блокноте</span><span class="clue">Радиоприёмник</span><span class="clue">Ультрафиолет</span></div>
+    <div class="card-body">
+      <div class="info-line">Может быть добрым, может быть агрессивным</div>
+      <div class="info-line">Меняет состояния прямо во время охоты</div>
+      <div class="info-line">В агрессивном — охотится быстрее, в спокойном — медленнее</div>
+    </div>
+  </div>
+
+  <div id="no-results">// призрак не найден</div>
+</div><!-- /ghost-grid -->
+  <div class="legend">
+    <span class="legend-item"><span class="legend-dot" style="background:var(--teal)"></span>медленный</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--accent)"></span>обычный</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--red)"></span>быстрый</span>
+    <span class="legend-item"><span class="legend-dot" style="background:var(--purple)"></span>особый</span>
+  </div>
+  <div class="footer-note">
+    Источник: Phasmophobia Wiki · LoS-ускорение до 2.805 м/с (нарастает 13 сек)<br>
+    При Кровавой Луне все призраки +15% к скорости
+  </div>
+  </div><!-- /left-col -->
+
+  <!-- RIGHT: Clue Panel -->
+  <div class="clue-panel" id="clue-panel">
+    <div class="clue-panel-header">
+      <span>// улики</span>
+      <button onclick="resetClues()">сброс</button>
+    </div>
+    <div class="clue-btn-list" id="clue-btn-list">
+      <!-- rendered by JS -->
+    </div>
+    <div class="match-count" id="match-count">совпадений: <span id="match-num">27</span></div>
+    <div style="padding:8px 12px 12px;border-top:0.5px solid var(--border-bright);">
+      <button class="clue-btn" id="req-btn" onclick="toggleRequired()" style="width:100%;justify-content:flex-start;">
+        <span class="clue-icon">🔴</span><span>Обязательная улика</span>
+      </button>
+    </div>
+  </div>
+
+  </div><!-- /main-layout -->
+
+<script>
+function clearSearch() {
+  const inp = document.getElementById('search');
+  inp.value = '';
+  document.getElementById('search-clear').style.display = 'none';
+  inp.dispatchEvent(new Event('input'));
+  inp.focus();
+}
+
+function clearFeatureSearch() {
+  const inp = document.getElementById('search-feature');
+  inp.value = '';
+  document.getElementById('search-feature-clear').style.display = 'none';
+  applySearchFilters();
+  inp.focus();
+}
+
+function applySearchFilters() {
+  const nameQ = document.getElementById('search').value.toLowerCase().trim();
+  const featQ = document.getElementById('search-feature').value.toLowerCase().trim();
+  let count = 0;
+  document.querySelectorAll('.card[data-name]').forEach(c => {
+    const nameMatch = !nameQ || c.dataset.name.includes(nameQ);
+    const tierMatch = activeTier === 'all' || c.dataset.tier === activeTier || (activeTier === 'slow' && c.dataset.slow === 'true') || (activeTier === 'vfast' && c.dataset.vfast === 'true');
+    const featMatch = !featQ || Array.from(c.querySelectorAll('.info-line')).some(el => el.textContent.toLowerCase().includes(featQ));
+    const show = nameMatch && tierMatch && featMatch;
+    c.classList.toggle('hidden', !show);
+    if (show) count++;
+  });
+  document.getElementById('no-results').style.display = count === 0 ? 'block' : 'none';
+}
+
+document.getElementById('search').addEventListener('input', function() {
+  document.getElementById('search-clear').style.display = this.value ? 'block' : 'none';
+  applySearchFilters();
+});
+
+document.getElementById('search-feature').addEventListener('input', function() {
+  document.getElementById('search-feature-clear').style.display = this.value ? 'block' : 'none';
+  applySearchFilters();
+});
+
+const TIERS = {
+  slow:    { label: 'медленный',     cls: 'slow' },
+  normal:  { label: 'обычный',       cls: 'normal' },
+  fast:    { label: 'быстрый',       cls: 'fast' },
+  vfast:   { label: 'очень быстрый', cls: 'vfast' },
+  special: { label: 'особый',        cls: 'special' },
+};
+
+const ghosts = [
+  { ru:'Дух',         base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Смаджинг блокирует охоту на 180 сек вместо 90' },
+  { ru:'Мираж',       base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Телепортируется к игроку; не оставляет следов на соли' },
+  { ru:'Фантом',      base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Мигает реже в охоте (каждые 1–2 сек); снимает рассудок при наблюдении' },
+  { ru:'Полтергейст', base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Бросает несколько предметов одновременно, снижая рассудок' },
+  { ru:'Банши',       base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Охотится только на одну цель; кричит на параболическом микрофоне' },
+  { ru:'Джинн',    vfast:true,       base:'1.7',     range:'1.7–2.5',    tier:'special', note:'2.5 м/с при прямой видимости если генератор включён; никогда не выключает генератор' },
+  { ru:'Мара',        base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Охотится от 40% в темноте и от 60% при свете; гасит свет' },
+  { ru:'Ревенант',    slow:true,    base:'1.0',     range:'1.0 / 3.0',  tier:'vfast',   note:'3.0 м/с при обнаружении, 1.0 м/с без цели' },
+  { ru:'Тень',        base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Охотится только ниже 35% рассудка; пассивен рядом с группой' },
+  { ru:'Демон',       base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Может охотиться от 70% рассудка; откат смаджа 60 сек вместо 90' },
+  { ru:'Юрэй',        base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Смадж запирает в комнате на 90 сек' },
+  { ru:'Они',         base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Активнее при игроках рядом; виден постоянно в охоте' },
+  { ru:'Ёкай',        base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Охотится раньше при голосе; слышит только в радиусе 2.5 м' },
+  { ru:'Ханту',        slow:true,       base:'1.7',     range:'1.2–2.7',    tier:'special', note:'2.7 м/с на холоде, 1.2 м/с в тепле; выдыхает пар во время охоты' },
+  { ru:'Горё',        base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Проекцию видно только через видеокамеру; не покидает свою комнату' },
+  { ru:'Мюлинг',      base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Очень тихий — шаги слышны только в 12 метрах' },
+  { ru:'Онрё',        base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Охотится при задувании свечей; горящая свеча блокирует охоту' },
+  { ru:'Близнецы',    vfast:true,    base:'1.5/1.9', range:'1.5–3.1',    tier:'special', note:'Один из двух на 10% медленнее, другой на 10% быстрее базы' },
+  { ru:'Райдзю',    vfast:true,      base:'1.7',     range:'1.7–2.5',    tier:'special',    note:'2.5 м/с рядом с активной электроникой' },
+  { ru:'Обакэ',       base:'1.7',     range:'1.7–2.805',  tier:'normal',  note:'Редко оставляет 6-пальчатый отпечаток; меняет облик в охоте' },
+  { ru:'Мимик',       base:'—',       range:'копирует',   tier:'special', note:'Копирует скорость выбранного призрака; всегда даёт призрачные орбы' },
+  { ru:'Морой',       base:'1.5',     range:'1.5–3.71',   tier:'vfast',   note:'До 3.71 м/с при низком рассудке — самый быстрый в игре' },
+  { ru:'Деоген',    vfast:true,       slow:true,      base:'1.7',     range:'0.4–3.0',    tier:'special', note:'3.0 м/с вдали, 0.4 м/с вплотную; всегда знает позицию игрока' },
+  { ru:'Тайэ',    vfast:true,         slow:true,        base:'2.75',    range:'1.0–2.75',   tier:'special',    note:'Стартует на 2.75 м/с, замедляется с каждым «старением» до 1.0 м/с' },
+  { ru:'Дайан',       base:'1.7',     range:'1.2–2.25',   tier:'special', note:'2.25 м/с если игрок движется в 10 м; 1.2 м/с если стоит' },
+  { ru:'Галлу',       base:'1.7',     range:'1.36–1.96',  tier:'special', note:'Норм: 1.7, ярость: 1.96, слабость: 1.36' },
+  { ru:'Обамбо',      base:'1.7',     range:'1.45–1.96',  tier:'special', note:'Спокойный: 1.45 м/с (охота с 10%), агрессивный: 1.96 м/с (охота с 65%)' },
+];
+
+
+let activeTier = 'all';
+
+function setTier(tier) {
+  activeTier = tier;
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tier === tier);
+  });
+  applySearchFilters();
+}
+
+// Инжектим скорость в карточки призраков
+(function injectSpeedBadges() {
+  const speedMap = {};
+  ghosts.forEach(g => {
+    speedMap[g.ru.toLowerCase()] = g;
+  });
+
+  document.querySelectorAll('.card[data-name]').forEach(card => {
+    const firstName = card.dataset.name.split(' ')[0];
+    const data = speedMap[firstName];
+    if (!data) return;
+
+    const head = card.querySelector('.card-head');
+    if (!head) return;
+
+    card.dataset.tier = data.tier;
+    if (data.slow) card.dataset.slow = 'true';
+    if (data.vfast) card.dataset.vfast = 'true';
+
+    const badge = document.createElement('span');
+    badge.className = 'speed-badge ' + data.tier;
+    badge.title = data.range + ' м/с';
+    badge.textContent = data.range + ' м/с';
+    head.appendChild(badge);
+  });
+})();
+
+// ===== CLUE PANEL =====
+const ALL_CLUES = [
+  { id: 'emp',   label: 'ЭМП (ур.5)',          icon: '⚡' },
+  { id: 'dots',  label: 'Лазерный проектор',    icon: '🔦' },
+  { id: 'uv',    label: 'Ультрафиолет',          icon: '🟣' },
+  { id: 'temp',  label: 'Минусовая температура', icon: '🌡' },
+  { id: 'orbs',  label: 'Призрачный огонёк',     icon: '🔮' },
+  { id: 'book',  label: 'Записи в блокноте',     icon: '📖' },
+  { id: 'radio', label: 'Радиоприёмник',         icon: '📻' },
+];
+
+// Sanity thresholds per ghost (all values that can trigger hunt)
+const SANITY_MAP = {
+  'дух':        [50],
+  'мираж':      [50],
+  'фантом':     [50],
+  'полтергейст':[50],
+  'банши':      [50],
+  'джинн':      [50],
+  'мара':       [40, 60],
+  'ревенант':   [50],
+  'тень':       [35],
+  'демон':      [70],
+  'юрэй':       [50],
+  'они':        [50],
+  'ёкай':       [50],
+  'ханту':      [50],
+  'горё':       [50],
+  'мюлинг':     [50],
+  'онрё':       [60],
+  'близнецы':   [50],
+  'райдзю':     [50, 65],
+  'обакэ':      [50],
+  'мимик':      [50],
+  'морой':      [50],
+  'деоген':     [40],
+  'тайэ':       [75],
+  'дайан':      [50],
+  'галлу':      [40, 50, 60],
+  'обамбо':     [10, 65],
+};
+
+// Inject data-sanity onto each card
+(function injectSanity() {
+  document.querySelectorAll('.card[data-name]').forEach(card => {
+    const firstName = card.dataset.name.split(' ')[0];
+    const vals = SANITY_MAP[firstName];
+    if (vals) card.dataset.sanity = vals.join(',');
+  });
+})();
+
+// All unique sanity values sorted
+const SANITY_VALUES = [10, 35, 40, 50, 60, 65, 70, 75];
+let activeSanity = null; // null = no filter
+
+// Render sanity filter buttons inside clue panel
+function renderSanityButtons() {
+  const list = document.getElementById('clue-btn-list');
+  // Remove existing sanity section if any
+  const old = document.getElementById('sanity-section');
+  if (old) old.remove();
+
+  const section = document.createElement('div');
+  section.id = 'sanity-section';
+  section.style.cssText = 'padding: 4px 12px 10px; border-top: 0.5px solid var(--border-bright); margin-top: 4px;';
+
+  const label = document.createElement('div');
+  label.style.cssText = 'font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);padding:8px 0 6px;';
+  label.textContent = '// рассудок';
+  section.appendChild(label);
+
+  const btnRow = document.createElement('div');
+  btnRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px;';
+
+  SANITY_VALUES.forEach(val => {
+    const btn = document.createElement('button');
+    btn.className = 'clue-btn' + (activeSanity === val ? ' confirmed' : '');
+    btn.style.cssText = 'padding:6px 10px;font-size:12px;flex:0 0 auto;width:auto;';
+    btn.innerHTML = `<span class="clue-icon">🧠</span><span>${val}%</span>`;
+    btn.addEventListener('click', () => {
+      activeSanity = (activeSanity === val) ? null : val;
+      renderSanityButtons();
+      applyClueFilter();
+    });
+    btnRow.appendChild(btn);
+  });
+
+  section.appendChild(btnRow);
+  document.getElementById('clue-btn-list').parentNode.appendChild(section);
+}
+
+// state: null = neutral, true = confirmed, false = ruled-out
+const clueState = {};
+ALL_CLUES.forEach(c => clueState[c.id] = null);
+
+function renderCluePanel() {
+  const list = document.getElementById('clue-btn-list');
+  list.innerHTML = '';
+  ALL_CLUES.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'clue-btn' + (clueState[c.id] === true ? ' confirmed' : clueState[c.id] === false ? ' ruled-out' : '');
+    btn.innerHTML = `<span class="clue-icon">${c.icon}</span><span>${c.label}</span><span class="clue-state"></span>`;
+    btn.addEventListener('click', () => cycleClue(c.id));
+    list.appendChild(btn);
+  });
+  applyClueFilter();
+}
+
+function cycleClue(id) {
+  // null → confirmed → ruled-out → null
+  if (clueState[id] === null)  clueState[id] = true;
+  else if (clueState[id] === true) clueState[id] = false;
+  else clueState[id] = null;
+  renderCluePanel();
+}
+
+function resetClues() {
+  ALL_CLUES.forEach(c => clueState[c.id] = null);
+  activeSanity = null;
+  requiredActive = false;
+  if (document.getElementById('req-btn')) document.getElementById('req-btn').classList.remove('confirmed');
+  renderCluePanel();
+  renderSanityButtons();
+}
+
+function applyClueFilter() {
+  const confirmed = ALL_CLUES.filter(c => clueState[c.id] === true).map(c => c.label);
+  const ruledOut  = ALL_CLUES.filter(c => clueState[c.id] === false).map(c => c.label);
+
+  let matchCount = 0;
+  document.querySelectorAll('.card[data-name]').forEach(card => {
+    const clueEls = card.querySelectorAll('.clue');
+    const cardClues = Array.from(clueEls).map(el => el.textContent.trim());
+
+    const hasAll = confirmed.every(c => cardClues.includes(c));
+    const hasNone = ruledOut.every(c => !cardClues.includes(c));
+
+    // Sanity filter: show card if it has the exact sanity value selected
+    let sanityPass = true;
+    if (activeSanity !== null) {
+      const vals = (card.dataset.sanity || '').split(',').map(Number);
+      sanityPass = vals.includes(activeSanity);
+    }
+
+    const passes = hasAll && hasNone && sanityPass && (!requiredActive || REQUIRED_GHOSTS.has(card.dataset.name));
+
+    card.classList.toggle('clue-eliminated', !passes);
+    card.classList.toggle('clue-match', passes && (confirmed.length > 0 || ruledOut.length > 0 || activeSanity !== null || requiredActive));
+    if (passes) matchCount++;
+  });
+
+  document.getElementById('match-num').textContent = matchCount;
+}
+
+const REQUIRED_GHOSTS = new Set(['обакэ обаке', 'ханту', 'горё горе', 'морой']);
+let requiredActive = false;
+
+function toggleRequired() {
+  requiredActive = !requiredActive;
+  document.getElementById('req-btn').classList.toggle('confirmed', requiredActive);
+  applyClueFilter();
+}
+
+renderCluePanel();
+renderSanityButtons();
+
+</script>
+</body>
+</html>
