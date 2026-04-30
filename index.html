@@ -594,6 +594,45 @@
   .card.clue-match { border-color: rgba(124,158,255,0.4); }
   .card.clue-eliminated { opacity: 0.25; filter: grayscale(0.5); }
 
+  /* ghost card manual states */
+  .card.ghost-selected {
+    border-color: rgba(52,211,153,0.6) !important;
+    box-shadow: 0 0 0 1px rgba(52,211,153,0.2);
+  }
+  .card.ghost-selected .ghost-name {
+    color: var(--green);
+  }
+  .card.ghost-eliminated {
+    opacity: 0.2;
+    filter: grayscale(0.6);
+  }
+  .card.ghost-eliminated .ghost-name {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+
+  .ghost-state-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    flex-shrink: 0;
+    margin-left: 6px;
+  }
+  .ghost-state-badge.selected {
+    background: rgba(52,211,153,0.15);
+    color: var(--green);
+    border: 0.5px solid rgba(52,211,153,0.4);
+  }
+  .ghost-state-badge.eliminated {
+    background: rgba(248,113,113,0.1);
+    color: var(--red);
+    border: 0.5px solid rgba(248,113,113,0.3);
+  }
+
+  .card { cursor: pointer; }
+  .card .card-head { user-select: none; }
+
   @media (max-width: 900px) {
     .main-layout { grid-template-columns: 1fr; }
     .clue-panel { position: static; }
@@ -606,6 +645,65 @@
     .wrapper { padding: 20px 12px 60px; }
     #search { width: 100%; }
     .td-note { display: none; }
+  }
+  /* TABS */
+  .tabs { display: flex; padding-top: 10px; }
+  .tab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    user-select: none;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* PATTERN PANEL */
+  .pattern-outer {
+    padding: 12px 16px 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pattern-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .pattern-card {
+    background: var(--surface);
+    border: 0.5px solid var(--border-bright);
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .pattern-card:hover {
+    border-color: rgba(255,255,255,0.25);
+    background: var(--surface2);
+  }
+
+  .pattern-name {
+    font-size: clamp(11px, 1vw, 16px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-align: center;
   }
 </style>
 </head>
@@ -621,8 +719,13 @@
       <h1>Шпаргалка</h1>
     </div>
   </div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('ghosts')">Призраки</div>
+    <div class="tab" onclick="switchTab('patterns')">Паттерны призраков</div>
+  </div>
 </div>
 
+<div class="panel active" id="panel-ghosts">
 <div class="wrapper">
   <div class="stats">
     <div class="stat-card"><div class="stat-label">Всего призраков</div><div class="stat-value">27 <span>типов</span></div></div>
@@ -1173,6 +1276,9 @@ function renderSanityButtons() {
   document.getElementById('clue-btn-list').parentNode.appendChild(section);
 }
 
+// ===== GHOST CARD STATE (объявляем заранее, используется в applyClueFilter) =====
+const ghostCardState = {};
+
 // state: null = neutral, true = confirmed, false = ruled-out
 const clueState = {};
 ALL_CLUES.forEach(c => clueState[c.id] = null);
@@ -1203,6 +1309,10 @@ function resetClues() {
   activeSanity = null;
   requiredActive = false;
   if (document.getElementById('req-btn')) document.getElementById('req-btn').classList.remove('confirmed');
+  document.querySelectorAll('.card[data-name]').forEach(card => {
+    ghostCardState[card.dataset.name] = null;
+    updateGhostCard(card);
+  });
   renderCluePanel();
   renderSanityButtons();
 }
@@ -1226,7 +1336,8 @@ function applyClueFilter() {
       sanityPass = vals.includes(activeSanity);
     }
 
-    const passes = hasAll && hasNone && sanityPass && (!requiredActive || REQUIRED_GHOSTS.has(card.dataset.name));
+    const notEliminated = (ghostCardState[card.dataset.name] || null) !== 'eliminated';
+    const passes = hasAll && hasNone && sanityPass && notEliminated && (!requiredActive || REQUIRED_GHOSTS.has(card.dataset.name));
 
     card.classList.toggle('clue-eliminated', !passes);
     card.classList.toggle('clue-match', passes && (confirmed.length > 0 || ruledOut.length > 0 || activeSanity !== null || requiredActive));
@@ -1248,6 +1359,167 @@ function toggleRequired() {
 renderCluePanel();
 renderSanityButtons();
 
+// ===== GHOST CARD STATES =====
+// null = neutral, 'selected' = подозреваемый, 'eliminated' = вычеркнут
+
+function cycleGhostState(card) {
+  const name = card.dataset.name;
+  const cur = ghostCardState[name] || null;
+  if (cur === null)          ghostCardState[name] = 'selected';
+  else if (cur === 'selected') ghostCardState[name] = 'eliminated';
+  else                         ghostCardState[name] = null;
+  updateGhostCard(card);
+  applyClueFilter();
+}
+
+function updateGhostCard(card) {
+  const name = card.dataset.name;
+  const state = ghostCardState[name] || null;
+
+  card.classList.toggle('ghost-selected',   state === 'selected');
+  card.classList.toggle('ghost-eliminated', state === 'eliminated');
+
+  // badge
+  let badge = card.querySelector('.ghost-state-badge');
+  if (!badge) {
+    badge = document.createElement('span');
+    badge.className = 'ghost-state-badge';
+    card.querySelector('.card-head').appendChild(badge);
+  }
+  if (state === 'selected') {
+    badge.textContent = '👁 цель';
+    badge.className = 'ghost-state-badge selected';
+  } else if (state === 'eliminated') {
+    badge.textContent = '✗';
+    badge.className = 'ghost-state-badge eliminated';
+  } else {
+    badge.remove();
+  }
+}
+
+document.querySelectorAll('.card[data-name]').forEach(card => {
+  card.addEventListener('click', function(e) {
+    // не мешаем кликам внутри карточки на ссылки и кнопки
+    if (e.target.closest('button, a')) return;
+    cycleGhostState(card);
+  });
+});
+
+</script>
+</div><!-- /wrapper -->
+</div><!-- /panel-ghosts -->
+
+<!-- PATTERNS PANEL -->
+<div class="panel" id="panel-patterns">
+  <div class="pattern-outer">
+    <div class="pattern-grid">
+      <div class="pattern-card" data-gif="1" data-title="Дух" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Дух</span></div>
+      <div class="pattern-card" data-gif="2" data-title="Мираж" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Мираж</span></div>
+      <div class="pattern-card" data-gif="3" data-title="Фантом" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Фантом</span></div>
+      <div class="pattern-card" data-gif="4" data-title="Полтергейст" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Полтергейст</span></div>
+      <div class="pattern-card" data-gif="5" data-title="Банши" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Банши</span></div>
+      <div class="pattern-card" data-gif="6" data-title="Джинн" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Джинн</span></div>
+      <div class="pattern-card" data-gif="7" data-title="Мара" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Мара</span></div>
+      <div class="pattern-card" data-gif="8" data-title="Ревенант" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Ревенант</span></div>
+      <div class="pattern-card" data-gif="9" data-title="Тень" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Тень</span></div>
+      <div class="pattern-card" data-gif="10" data-title="Демон" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Демон</span></div>
+      <div class="pattern-card" data-gif="11" data-title="Юрэй" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Юрэй</span></div>
+      <div class="pattern-card" data-gif="12" data-title="Они" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Они</span></div>
+      <div class="pattern-card" data-gif="13" data-title="Ёкай" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Ёкай</span></div>
+      <div class="pattern-card" data-gif="14" data-title="Ханту" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Ханту</span></div>
+      <div class="pattern-card" data-gif="15" data-title="Горё" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Горё</span></div>
+      <div class="pattern-card" data-gif="16" data-title="Мюлинг" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Мюлинг</span></div>
+      <div class="pattern-card" data-gif="17" data-title="Онрё" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Онрё</span></div>
+      <div class="pattern-card" data-gif="18" data-title="Близнецы" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Близнецы</span></div>
+      <div class="pattern-card" data-gif="19" data-title="Райдзю" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Райдзю</span></div>
+      <div class="pattern-card" data-gif="20" data-title="Обакэ" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Обакэ</span></div>
+      <div class="pattern-card" data-gif="21" data-title="Мимик" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Мимик</span></div>
+      <div class="pattern-card" data-gif="22" data-title="Морой" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Морой</span></div>
+      <div class="pattern-card" data-gif="23" data-title="Деоген" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Деоген</span></div>
+      <div class="pattern-card" data-gif="24" data-title="Тайэ" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Тайэ</span></div>
+      <div class="pattern-card" data-gif="25" data-title="Дайан" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Дайан</span></div>
+      <div class="pattern-card" data-gif="26" data-title="Галлу" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Галлу</span></div>
+      <div class="pattern-card" data-gif="27" data-title="Обамбо" data-desc="*** описание паттерна ***" onclick="openPatternModal(this)"><span class="pattern-name">Обамбо</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="pattern-modal" onclick="closePatternModal(event)" style="
+  display:none; position:fixed; inset:0; z-index:999;
+  background:rgba(0,0,0,0.75); backdrop-filter:blur(6px);
+  align-items:center; justify-content:center;
+">
+  <div style="
+    background:var(--surface); border:0.5px solid var(--border-bright);
+    border-radius:16px; width:min(900px, 95vw); max-height:95vh;
+    display:flex; flex-direction:column; overflow:hidden;
+    position:relative;
+  " onclick="event.stopPropagation()">
+    <!-- header -->
+    <div style="
+      padding:16px 20px 12px; border-bottom:0.5px solid var(--border-bright);
+      display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
+    ">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;">// паттерн</div>
+        <div id="modal-title" style="font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--text);">***</div>
+      </div>
+      <button onclick="closePatternModal()" style="
+        background:rgba(255,255,255,0.06); border:0.5px solid var(--border-bright);
+        border-radius:8px; color:var(--muted); cursor:pointer;
+        font-size:14px; padding:6px 10px; line-height:1;
+        transition:color .15s, background .15s;
+      " onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">✕</button>
+    </div>
+    <!-- description -->
+    <div id="modal-desc" style="
+      padding:12px 20px; font-size:13px; color:#9ca3b8;
+      line-height:1.6; flex-shrink:0; border-bottom:0.5px solid var(--border);
+    ">***</div>
+    <!-- gif -->
+    <div style="overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--bg);">
+      <img id="modal-gif" src="" alt="паттерн" style="
+        width:100%; height:auto; max-height:75vh; object-fit:contain; display:block;
+      ">
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`.tab[onclick="switchTab('${tab}')"]`).classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.body.style.overflow = tab === 'patterns' ? 'hidden' : '';
+}
+
+function openPatternModal(el) {
+  document.getElementById('modal-title').textContent = el.dataset.title;
+  document.getElementById('modal-desc').textContent  = el.dataset.desc;
+  document.getElementById('modal-gif').src           = 'gif/gif' + el.dataset.gif + '.gif';
+  const modal = document.getElementById('pattern-modal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closePatternModal(e) {
+  if (e && e.target !== document.getElementById('pattern-modal') && e.type !== 'click') return;
+  document.getElementById('pattern-modal').style.display = 'none';
+  document.getElementById('modal-gif').src = '';
+  document.body.style.overflow = 'hidden'; // паттерны панель тоже скрывает скролл
+}
+
+function resizePatternPanel() {
+  const header = document.querySelector('.site-header');
+  const outer = document.querySelector('.pattern-outer');
+  if (header && outer) {
+    outer.style.height = (window.innerHeight - header.getBoundingClientRect().height) + 'px';
+  }
+}
+resizePatternPanel();
+window.addEventListener('resize', resizePatternPanel);
 </script>
 </body>
 </html>
