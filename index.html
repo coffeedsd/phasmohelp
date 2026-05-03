@@ -705,6 +705,191 @@
     color: var(--text);
     text-align: center;
   }
+
+  /* ===== CURSED PANEL ===== */
+  #panel-cursed .wrapper { max-width: 1400px; margin: 0 auto; }
+  .cursed-layout { display: grid; grid-template-columns: 1fr 300px; gap: 28px; align-items: start; }
+
+  .cursed-nav {
+    position: sticky; top: 110px;
+    background: var(--surface); border: 0.5px solid var(--border-bright);
+    border-radius: 14px; overflow: hidden;
+  }
+  .cursed-nav-header {
+    padding: 14px 18px; border-bottom: 0.5px solid var(--border-bright);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  .cursed-nav-section { padding: 8px 10px; border-bottom: 0.5px solid var(--border); }
+  .cursed-nav-section:last-child { border-bottom: none; }
+  .cursed-nav-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+    padding: 6px 10px 4px; opacity: 0.55;
+  }
+  .cursed-nav-link {
+    display: block; padding: 8px 12px; border-radius: 7px;
+    font-size: 12px; font-weight: 500; color: var(--muted);
+    cursor: pointer; transition: background 0.15s, color 0.15s;
+    user-select: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .cursed-nav-link:hover { background: rgba(255,255,255,0.05); color: var(--text); }
+  .cursed-nav-link.cnav-active { background: rgba(124,158,255,0.12); color: var(--accent); }
+
+  .cursed-section { margin-bottom: 52px; }
+  .cursed-section-title {
+    font-size: 28px; font-weight: 700; letter-spacing: 0;
+    color: var(--accent); margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 0.5px solid var(--border-bright);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .map-block {
+    background: var(--surface); border: 0.5px solid var(--border-bright);
+    border-radius: 14px; overflow: hidden; margin-bottom: 14px;
+  }
+  /* MAP CAROUSEL */
+  .map-carousel {
+    position: relative;
+    background: #080a0c;
+    overflow: hidden;
+  }
+  .map-carousel-track {
+    display: flex;
+    transition: transform 0.35s ease;
+  }
+  .map-carousel-slide {
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+  }
+  .map-carousel-slide img {
+    width: 100%; height: auto; max-height: 500px; object-fit: contain;
+    border-radius: 8px; display: block; cursor: zoom-in; transition: opacity 0.15s;
+  }
+  .map-carousel-slide img:hover { opacity: 0.9; }
+  .map-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.55);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    color: #fff;
+    transition: background 0.18s, transform 0.18s;
+    z-index: 10;
+    line-height: 1;
+    user-select: none;
+  }
+  .map-carousel-btn:hover {
+    background: rgba(255,255,255,0.28);
+    transform: translateY(-50%) scale(1.1);
+  }
+  .map-carousel-btn.prev { left: 10px; }
+  .map-carousel-btn.next { right: 10px; }
+  .map-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 0 4px;
+    background: #080a0c;
+  }
+  .map-carousel-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .map-carousel-dot.active { background: rgba(255,255,255,0.8); }
+  .map-caption {
+    padding: 9px 16px; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--muted); letter-spacing: 0.08em;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .item-block {
+    background: var(--surface); border: 0.5px solid var(--border-bright);
+    border-radius: 14px; overflow: hidden; margin-bottom: 22px;
+  }
+  .item-block-header {
+    padding: 13px 18px 11px; border-bottom: 0.5px solid var(--border-bright);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .item-block-icon {
+    width: 34px; height: 34px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; background: rgba(124,158,255,0.1); flex-shrink: 0;
+  }
+  .item-block-name { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+  .item-block-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.1em; margin-top: 2px; }
+  .item-block-photo { background: var(--bg); padding: 10px; }
+  .item-block-photo img { width: 100%; height: auto; border-radius: 8px; display: block; cursor: zoom-in; }
+  .item-block-body { padding: 15px 18px 18px; }
+  .item-desc { font-size: 13.5px; color: #9ca3b8; line-height: 1.65; margin-bottom: 13px; }
+  .item-usage-title {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px;
+  }
+  .item-usage-list { display: flex; flex-direction: column; gap: 6px; }
+  .item-usage-row { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: #9ca3b8; line-height: 1.5; }
+  .item-usage-row .bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; opacity: 0.5; }
+  .item-usage-row strong { color: var(--text); }
+  .item-usage-row .warn { color: var(--amber); }
+  .item-usage-row .danger { color: var(--red); }
+  .item-usage-row .good { color: var(--green); }
+
+  .tarot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 7px; margin-top: 12px; }
+  .tarot-card { background: var(--surface2); border: 0.5px solid var(--border-bright); border-radius: 10px; padding: 10px 13px; display: flex; align-items: center; gap: 10px; }
+  .tarot-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .tarot-info { flex: 1; }
+  .tarot-name { font-size: 13px; font-weight: 700; color: var(--text); }
+  .tarot-chance { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); margin-bottom: 2px; }
+  .tarot-effect { font-size: 12px; color: #8b90a0; line-height: 1.4; }
+
+  .ouija-list { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+  .ouija-row { background: var(--surface2); border: 0.5px solid var(--border-bright); border-radius: 9px; padding: 8px 13px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 10px; align-items: center; }
+  .ouija-q { font-size: 12.5px; color: var(--text); font-style: italic; }
+  .ouija-a { font-size: 12px; color: #8b90a0; }
+  .ouija-sanity { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--red); white-space: nowrap; }
+
+  .wish-list { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; }
+  .wish-row { background: var(--surface2); border: 0.5px solid var(--border-bright); border-radius: 10px; padding: 10px 14px; display: grid; grid-template-columns: auto 1fr; gap: 10px; }
+  .wish-phrase { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent2); white-space: nowrap; }
+  .wish-effect { font-size: 12px; color: #9ca3b8; line-height: 1.5; }
+
+  #cursed-lightbox { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.88); backdrop-filter:blur(8px); align-items:center; justify-content:center; cursor:zoom-out; flex-direction:column; gap:14px; }
+  #cursed-lightbox.open { display:flex; }
+  #cursed-lightbox img { max-width:92vw; max-height:82vh; object-fit:contain; border-radius:12px; box-shadow:0 0 60px rgba(0,0,0,0.8); cursor:default; }
+  #cursed-lb-close { position:absolute; top:20px; right:24px; background:rgba(255,255,255,0.09); border:0.5px solid rgba(255,255,255,0.15); border-radius:8px; color:var(--text); font-size:16px; width:34px; height:34px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+  #cursed-lb-caption { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:#fff; letter-spacing:0.01em; text-shadow:0 2px 12px rgba(0,0,0,0.8); pointer-events:none; text-align:center; min-height:24px; }
+  .cursed-lb-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 50px; height: 50px;
+    background: rgba(255,255,255,0.13); border: 1.5px solid rgba(255,255,255,0.55);
+    border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #fff;
+    transition: background 0.18s, transform 0.18s;
+    z-index: 10001; line-height: 1;
+  }
+  .cursed-lb-arrow:hover { background: rgba(255,255,255,0.28); }
+  .cursed-lb-prev { left: 20px; }
+  .cursed-lb-next { right: 20px; }
+  .cursed-lb-prev:hover { transform: translateY(-50%) scale(1.1); }
+  .cursed-lb-next:hover { transform: translateY(-50%) scale(1.1); }
+
+  @media (max-width: 900px) {
+    .cursed-layout { grid-template-columns: 1fr; }
+    .cursed-nav { position: static; }
+    .ouija-row { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -722,6 +907,8 @@
   <div class="tabs">
     <div class="tab active" onclick="switchTab('ghosts')">Призраки</div>
     <div class="tab" onclick="switchTab('patterns')">Паттерны призраков</div>
+    <div class="tab" onclick="switchTab('cursed')">Проклятые предметы</div>
+    <div class="tab" onclick="switchTab('timer')">Секундомер</div>
   </div>
 </div>
 
@@ -1486,6 +1673,652 @@ document.querySelectorAll('.card[data-name]').forEach(card => {
   </div>
 </div>
 
+<!-- ===== CURSED ITEMS PANEL ===== -->
+<div class="panel" id="panel-cursed">
+<div class="wrapper">
+<div class="cursed-layout">
+
+<!-- MAIN CONTENT -->
+<div class="cursed-main">
+
+  <!-- ── MAPS SECTION ── -->
+  <div class="cursed-section" id="csec-maps">
+    <div class="cursed-section-title"><span class="section-icon">🗺</span> Местоположения на картах</div>
+    <p style="font-size:13px;color:#8b90a0;margin-bottom:20px;line-height:1.6;">
+      На каждой карте есть одно фиксированное место спавна проклятого предмета.
+    </p>
+
+    <!-- 6 Tanglewood Drive -->
+    <div id="cmap-tanglewood" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">6 Tanglewood Drive</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-tanglewood">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_tanglewood.png" alt="6 Tanglewood Drive 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_tanglewood2.png" alt="6 Tanglewood Drive 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_tanglewood3.png" alt="6 Tanglewood Drive 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_tanglewood4.png" alt="6 Tanglewood Drive 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_tanglewood5.png" alt="6 Tanglewood Drive 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_tanglewood6.png" alt="6 Tanglewood Drive 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_tanglewood7.png" alt="6 Tanglewood Drive 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_tanglewood8.png" alt="6 Tanglewood Drive 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('tanglewood',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('tanglewood',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-tanglewood"></div>
+      </div>
+    </div>
+
+    <!-- 13 Willow Street -->
+    <div id="cmap-willow" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">13 Willow Street</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-willow">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_willow.png" alt="13 Willow Street 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_willow2.png" alt="13 Willow Street 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_willow3.png" alt="13 Willow Street 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_willow4.png" alt="13 Willow Street 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_willow5.png" alt="13 Willow Street 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_willow6.png" alt="13 Willow Street 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_willow7.png" alt="13 Willow Street 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_willow8.png" alt="13 Willow Street 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('willow',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('willow',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-willow"></div>
+      </div>
+    </div>
+
+    <!-- 10 Ridgeview Court -->
+    <div id="cmap-ridgeview" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">10 Ridgeview Court</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-ridgeview">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_ridgeview.png" alt="10 Ridgeview Court 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_ridgeview2.png" alt="10 Ridgeview Court 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_ridgeview3.png" alt="10 Ridgeview Court 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_ridgeview4.png" alt="10 Ridgeview Court 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_ridgeview5.png" alt="10 Ridgeview Court 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_ridgeview6.png" alt="10 Ridgeview Court 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_ridgeview7.png" alt="10 Ridgeview Court 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_ridgeview8.png" alt="10 Ridgeview Court 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('ridgeview',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('ridgeview',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-ridgeview"></div>
+      </div>
+    </div>
+
+    <!-- 42 Edgefield Road -->
+    <div id="cmap-edgefield" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">42 Edgefield Road</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-edgefield">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_edgefield.png" alt="42 Edgefield Road 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_edgefield2.png" alt="42 Edgefield Road 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_edgefield3.png" alt="42 Edgefield Road 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_edgefield4.png" alt="42 Edgefield Road 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_edgefield5.png" alt="42 Edgefield Road 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_edgefield6.png" alt="42 Edgefield Road 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_edgefield7.png" alt="42 Edgefield Road 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_edgefield8.png" alt="42 Edgefield Road 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('edgefield',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('edgefield',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-edgefield"></div>
+      </div>
+    </div>
+
+    <!-- Bleasdale Farmhouse -->
+    <div id="cmap-bleasdale" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Bleasdale Farmhouse</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-bleasdale">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_bleasdale.png" alt="Bleasdale Farmhouse 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_bleasdale2.png" alt="Bleasdale Farmhouse 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_bleasdale3.png" alt="Bleasdale Farmhouse 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_bleasdale4.png" alt="Bleasdale Farmhouse 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_bleasdale5.png" alt="Bleasdale Farmhouse 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_bleasdale6.png" alt="Bleasdale Farmhouse 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_bleasdale7.png" alt="Bleasdale Farmhouse 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_bleasdale8.png" alt="Bleasdale Farmhouse 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('bleasdale',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('bleasdale',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-bleasdale"></div>
+      </div>
+    </div>
+
+    <!-- Grafton Farmhouse -->
+    <div id="cmap-grafton" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Grafton Farmhouse</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-grafton">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_grafton.png" alt="Grafton Farmhouse 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_grafton2.png" alt="Grafton Farmhouse 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_grafton3.png" alt="Grafton Farmhouse 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_grafton4.png" alt="Grafton Farmhouse 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_grafton5.png" alt="Grafton Farmhouse 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_grafton6.png" alt="Grafton Farmhouse 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_grafton7.png" alt="Grafton Farmhouse 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_grafton8.png" alt="Grafton Farmhouse 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('grafton',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('grafton',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-grafton"></div>
+      </div>
+    </div>
+
+    <!-- Camp Woodwind -->
+    <div id="cmap-woodwind" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Camp Woodwind</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-woodwind">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_woodwind.png" alt="Camp Woodwind 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_woodwind2.png" alt="Camp Woodwind 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_woodwind3.png" alt="Camp Woodwind 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_woodwind4.png" alt="Camp Woodwind 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_woodwind5.png" alt="Camp Woodwind 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_woodwind6.png" alt="Camp Woodwind 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_woodwind7.png" alt="Camp Woodwind 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_woodwind8.png" alt="Camp Woodwind 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('woodwind',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('woodwind',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-woodwind"></div>
+      </div>
+    </div>
+
+    <!-- Maple Lodge Campsite -->
+    <div id="cmap-maple" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Maple Lodge Campsite</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-maple">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_maple.png" alt="Maple Lodge Campsite 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_maple2.png" alt="Maple Lodge Campsite 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_maple3.png" alt="Maple Lodge Campsite 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_maple4.png" alt="Maple Lodge Campsite 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_maple5.png" alt="Maple Lodge Campsite 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_maple6.png" alt="Maple Lodge Campsite 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_maple7.png" alt="Maple Lodge Campsite 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_maple8.png" alt="Maple Lodge Campsite 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('maple',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('maple',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-maple"></div>
+      </div>
+    </div>
+
+    <!-- Brownstone High School -->
+    <div id="cmap-brownstone" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Brownstone High School</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-brownstone">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_brownstone.png" alt="Brownstone High School 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_brownstone2.png" alt="Brownstone High School 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_brownstone3.png" alt="Brownstone High School 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_brownstone4.png" alt="Brownstone High School 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_brownstone5.png" alt="Brownstone High School 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_brownstone6.png" alt="Brownstone High School 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_brownstone7.png" alt="Brownstone High School 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_brownstone8.png" alt="Brownstone High School 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('brownstone',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('brownstone',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-brownstone"></div>
+      </div>
+    </div>
+
+    <!-- Prison -->
+    <div id="cmap-prison" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Prison</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-prison">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_prison.png" alt="Prison 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_prison2.png" alt="Prison 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_prison3.png" alt="Prison 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_prison4.png" alt="Prison 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_prison5.png" alt="Prison 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_prison6.png" alt="Prison 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_prison7.png" alt="Prison 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_prison8.png" alt="Prison 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('prison',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('prison',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-prison"></div>
+      </div>
+    </div>
+
+    <!-- Sunny Meadows -->
+    <div id="cmap-sunny" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Sunny Meadows Mental Institution</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-sunny">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_sunny.png" alt="Sunny Meadows 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_sunny2.png" alt="Sunny Meadows 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_sunny3.png" alt="Sunny Meadows 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_sunny4.png" alt="Sunny Meadows 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_sunny5.png" alt="Sunny Meadows 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_sunny6.png" alt="Sunny Meadows 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_sunny7.png" alt="Sunny Meadows 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_sunny8.png" alt="Sunny Meadows 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('sunny',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('sunny',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-sunny"></div>
+      </div>
+    </div>
+
+    <!-- Nell's Diner -->
+    <div id="cmap-nells" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Nell's Diner</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-nells">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img/map_nells.png" alt="Nell's Diner 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_nells2.png" alt="Nell's Diner 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_nells3.png" alt="Nell's Diner 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_nells4.png" alt="Nell's Diner 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_nells5.png" alt="Nell's Diner 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_nells6.png" alt="Nell's Diner 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_nells7.png" alt="Nell's Diner 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img/map_nells8.png" alt="Nell's Diner 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('nells',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('nells',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-nells"></div>
+      </div>
+    </div>
+    <!-- Point Hope -->
+    <div id="cmap-pointhope" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Point Hope</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-pointhope">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img3/map_pointhope.png" alt="Point Hope 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_pointhope2.png" alt="Point Hope 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_pointhope3.png" alt="Point Hope 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_pointhope4.png" alt="Point Hope 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_pointhope5.png" alt="Point Hope 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_pointhope6.png" alt="Point Hope 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_pointhope7.png" alt="Point Hope 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_pointhope8.png" alt="Point Hope 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('pointhope',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('pointhope',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-pointhope"></div>
+      </div>
+    </div>
+
+    <!-- Sunny Meadows Restricted -->
+    <div id="cmap-sunnyrestricted" class="cursed-section" style="margin-bottom:32px;">
+      <div class="cursed-section-title" style="color:var(--teal);font-size:24px;">Sunny Meadows Restricted</div>
+      <div class="map-block">
+        <div class="map-carousel" id="car-sunnyrestricted">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img3/map_sunnyrestricted.png" alt="Sunny Meadows Restricted 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_sunnyrestricted2.png" alt="Sunny Meadows Restricted 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_sunnyrestricted3.png" alt="Sunny Meadows Restricted 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_sunnyrestricted4.png" alt="Sunny Meadows Restricted 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_sunnyrestricted5.png" alt="Sunny Meadows Restricted 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_sunnyrestricted6.png" alt="Sunny Meadows Restricted 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_sunnyrestricted7.png" alt="Sunny Meadows Restricted 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img3/map_sunnyrestricted8.png" alt="Sunny Meadows Restricted 8" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('sunnyrestricted',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('sunnyrestricted',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-sunnyrestricted"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ITEMS SECTION ── -->
+  <div id="csec-items" class="cursed-section">
+    <div class="cursed-section-title"><span class="section-icon">☠</span> Как пользоваться предметами</div>
+
+    <!-- Кукла вуду -->
+    <div id="citem-voodoo" class="item-block">
+      <div class="item-block-header">
+        <div class="item-block-icon">🪆</div>
+        <div>
+          <div class="item-block-name">Кукла вуду</div>
+          <div class="item-block-sub">// VOODOO DOLL · проклятый предмет</div>
+        </div>
+      </div>
+      <div class="item-block-photo"><img src="img2/item_voodoo.png" alt="Кукла вуду" data-caption="Кукла вуду" onclick="openLightbox(this)"></div>
+      <div class="item-block-body">
+        <div class="item-desc">Позволяет взаимодействовать с призраком, но может спровоцировать охоту.</div>
+        <div class="item-usage-title">// использование</div>
+        <div class="item-usage-list">
+          <div class="item-usage-row"><div class="bullet"></div><div>ПКМ втыкает иглу: <strong>−5% рассудка</strong></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Попадание в <strong>сердце (−10%)</strong> вызывает <span class="danger">охоту</span></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Если рассудок упадёт до <strong>0%</strong> — вонзятся все иглы и <span class="danger">начнётся охота</span></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>При втыкании иглы помогает обнаружить <strong>ЭМП 5</strong></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div><span class="good">Заставляет призрака взаимодействовать с предметами</span> — помогает в поиске улик</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Музыкальная шкатулка -->
+    <div id="citem-music" class="item-block">
+      <div class="item-block-header">
+        <div class="item-block-icon">🎵</div>
+        <div>
+          <div class="item-block-name">Музыкальная шкатулка</div>
+          <div class="item-block-sub">// MUSIC BOX · проклятый предмет</div>
+        </div>
+      </div>
+      <div class="item-block-photo"><img src="img2/item_music.png" alt="Музыкальная шкатулка" data-caption="Муз. шкатулка" onclick="openLightbox(this)"></div>
+      <div class="item-block-body">
+        <div class="item-desc">Позволяет определить местоположение призрака, но опасна при неправильном использовании.</div>
+        <div class="item-usage-title">// использование</div>
+        <div class="item-usage-list">
+          <div class="item-usage-row"><div class="bullet"></div><div>Для активации зажать <strong>ПКМ</strong> — призрак начинает подпевать</div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Если шкатулка в <strong>5 м от призрака</strong> — <span class="good">он материализуется и идёт к ней</span></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div><span class="warn">Слушание музыки снижает рассудок −2.5%/сек</span> (~75% за полное прослушивание)</div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div><span class="danger">Охота начнётся если:</span> призрак рядом с держащим шкатулку / идёт дольше 5 сек / шкатулку бросили</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Магический круг -->
+    <div id="citem-circle" class="item-block">
+      <div class="item-block-header">
+        <div class="item-block-icon">⭕</div>
+        <div>
+          <div class="item-block-name">Магический круг</div>
+          <div class="item-block-sub">// SUMMONING CIRCLE · проклятый предмет</div>
+        </div>
+      </div>
+      <div class="item-block-photo"><img src="img2/item_circle.png" alt="Магический круг" data-caption="Магический круг" onclick="openLightbox(this)"></div>
+      <div class="item-block-body">
+        <div class="item-desc">Призывает призрака для взаимодействия или фотографирования.</div>
+        <div class="item-usage-title">// использование</div>
+        <div class="item-usage-list">
+          <div class="item-usage-row"><div class="bullet"></div><div>Нужно зажечь <strong>5 свечей</strong> (клавиша F держа зажигалку в руке) — каждая забирает <span class="warn">−16% рассудка</span></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>После активации призрак <span class="good">материализуется на 5 секунд</span>, затем <span class="danger">охота</span></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Если ≤16% рассудка при зажигании последней свечи — <span class="danger">охота начнётся сразу</span></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div><span class="good">Тень</span> вместо полной модельки покажет только силуэт тени</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Доска Уиджи -->
+    <div id="citem-ouija" class="item-block">
+      <div class="item-block-header">
+        <div class="item-block-icon">🔮</div>
+        <div>
+          <div class="item-block-name">Доска Уиджи</div>
+          <div class="item-block-sub">// OUIJA BOARD · проклятый предмет</div>
+        </div>
+      </div>
+      <div class="item-block-photo"><img src="img2/item_ouija.png" alt="Доска Уиджи" data-caption="Доска Уиджи" onclick="openLightbox(this)"></div>
+      <div class="item-block-body">
+        <div class="item-desc">Позволяет общаться с призраком, но забирает рассудок игрока.</div>
+        <div class="item-usage-title">// использование</div>
+        <div class="item-usage-list">
+          <div class="item-usage-row"><div class="bullet"></div><div>Активируется <strong>ЛКМ</strong>, затем задавай вопросы голосом (клавиша V) или текстовым управлением</div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Чтобы выключить — скажи <strong>"Прощай"</strong>, иначе <span class="danger">доска сгорит и начнётся охота</span></div></div>
+        </div>
+        <div class="item-usage-title" style="margin-top:14px;">// вопросы и потеря рассудка</div>
+        <div class="ouija-list">
+          <div class="ouija-row"><div class="ouija-q">"Где ты?"</div><div class="ouija-a">Комната призрака</div><div class="ouija-sanity">−50%</div></div>
+          <div class="ouija-row"><div class="ouija-q">"Ты отвечаешь всем?"</div><div class="ouija-a">Да / Нет</div><div class="ouija-sanity">−20%</div></div>
+          <div class="ouija-row"><div class="ouija-q">"Где кость?"</div><div class="ouija-a">Комната смерти</div><div class="ouija-sanity">−20%</div></div>
+          <div class="ouija-row"><div class="ouija-q">"Сыграем в прятки?"</div><div class="ouija-a">Обратный отсчёт 5...0, затем охота</div><div class="ouija-sanity" style="color:var(--red);font-weight:700;">⚠ ОХОТА</div></div>
+          <div class="ouija-row"><div class="ouija-q">"Сколько тебе лет?"</div><div class="ouija-a">Случайное число 2–90</div><div class="ouija-sanity">−5%</div></div>
+          <div class="ouija-row"><div class="ouija-q">"Сколько у меня рассудок?"</div><div class="ouija-a">Примерный уровень</div><div class="ouija-sanity">−5%</div></div>
+          <div class="ouija-row"><div class="ouija-q">"Как ты умер?"</div><div class="ouija-a">Случайный вариант</div><div class="ouija-sanity">−5%</div></div>
+          <div class="ouija-row"><div class="ouija-q">"Я потерял рассудок?"</div><div class="ouija-a">«Злой», «Слабый» и т.д.</div><div class="ouija-sanity">−5%</div></div>
+        </div>
+        <div class="item-usage-list" style="margin-top:10px;">
+          <div class="item-usage-row"><div class="bullet"></div><div>При общении через доску показывает уровень <strong>ЭМП 5</strong>. Нужный для этого вопрос: <em>"Сыграем в прятки?"</em></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Зачарованное зеркало -->
+    <div id="citem-mirror" class="item-block">
+      <div class="item-block-header">
+        <div class="item-block-icon">🪞</div>
+        <div>
+          <div class="item-block-name">Зачарованное зеркало</div>
+          <div class="item-block-sub">// HAUNTED MIRROR · проклятый предмет</div>
+        </div>
+      </div>
+      <div class="item-block-photo"><img src="img2/item_mirror.png" alt="Зачарованное зеркало" data-caption="Зачар. зеркало" onclick="openLightbox(this)"></div>
+      <div class="item-block-body">
+        <div class="item-desc">Показывает любимую комнату призрака или где он находится в реальном времени.</div>
+        <div class="item-usage-title">// использование</div>
+        <div class="item-usage-list">
+          <div class="item-usage-row"><div class="bullet"></div><div>Активируется <strong>ПКМ</strong> внутри зоны расследования</div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Тратит <span class="warn">−7.5% рассудка/сек</span> (минимум −20% за одно использование)</div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Если рассудок упадёт до 0% — <span class="danger">зеркало разобьётся и начнётся охота</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карты таро -->
+    <div id="citem-tarot" class="item-block">
+      <div class="item-block-header">
+        <div class="item-block-icon">🃏</div>
+        <div>
+          <div class="item-block-name">Карты таро</div>
+          <div class="item-block-sub">// TAROT CARDS · проклятый предмет</div>
+        </div>
+      </div>
+      <div class="item-block-photo">
+        <div class="map-carousel" id="car-tarot">
+          <div class="map-carousel-track">
+            <div class="map-carousel-slide"><img src="img2/item_tarot.png" alt="Карты таро 1" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot2.png" alt="Карты таро 2" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot3.png" alt="Карты таро 3" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot4.png" alt="Карты таро 4" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot5.png" alt="Карты таро 5" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot6.png" alt="Карты таро 6" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot7.png" alt="Карты таро 7" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot8.png" alt="Карты таро 8" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot9.png" alt="Карты таро 9" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot10.png" alt="Карты таро 10" onclick="openLightbox(this)"></div>
+            <div class="map-carousel-slide"><img src="img2/item_tarot11.png" alt="Карты таро 11" onclick="openLightbox(this)"></div>
+          </div>
+          <button class="map-carousel-btn prev" onclick="carouselMove('tarot',-1)">&#8592;</button>
+          <button class="map-carousel-btn next" onclick="carouselMove('tarot',1)">&#8594;</button>
+        </div>
+        <div class="map-carousel-dots" id="dots-tarot"></div>
+      </div>
+      <div class="item-block-body">
+        <div class="item-desc">Один из семи проклятых предметов — случайные эффекты на игрока или призрака. Колода содержит 10 карт, каждая сгорает после использования (свой цвет пламени).</div>
+        <div class="item-usage-title">// правила</div>
+        <div class="item-usage-list">
+          <div class="item-usage-row"><div class="bullet"></div><div>Использовать можно только внутри зоны расследования</div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Можно вытащить у двери и сразу выйти — <span class="good">если выпадет "Death" снаружи игроков, проклятая охота не начнётся</span></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div><strong>"The Hanged Man"</strong> работает как внутри, так и снаружи</div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Во время охоты всегда выпадает <strong>The Fool</strong></div></div>
+          <div class="item-usage-row"><div class="bullet"></div><div>Если все карты израсходованы — последующие охоты <span class="warn">продлеваются на 20 секунд</span></div></div>
+        </div>
+        <div class="item-usage-title" style="margin-top:14px;">// список карт</div>
+        <div class="tarot-grid">
+          <div class="tarot-card"><div class="tarot-dot" style="background:#3b82f6;"></div><div class="tarot-info"><div class="tarot-name">The Tower</div><div class="tarot-chance">20% · горит синим</div><div class="tarot-effect">Удваивает активность призрака на 20 сек</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#22c55e;"></div><div class="tarot-info"><div class="tarot-name">The Wheel of Fortune</div><div class="tarot-chance">20% · зелёный / красный</div><div class="tarot-effect">±25% рассудка (зелёный = +, красный = −)</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#a855f7;opacity:0.7"></div><div class="tarot-info"><div class="tarot-name">The Fool</div><div class="tarot-chance">17% (100% на охоте) · светло-фиолет.</div><div class="tarot-effect">Нет эффекта</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#ec4899;"></div><div class="tarot-info"><div class="tarot-name">The Devil</div><div class="tarot-chance">10% · розовый</div><div class="tarot-effect">Призрак создаёт паранормальное явление</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#7c3aed;"></div><div class="tarot-info"><div class="tarot-name">Death</div><div class="tarot-chance">10% · фиолетовый</div><div class="tarot-effect">Вызывает проклятую охоту</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#06b6d4;"></div><div class="tarot-info"><div class="tarot-name">The Hermit</div><div class="tarot-chance">10% · бирюзовый</div><div class="tarot-effect">Телепортирует призрака в его комнату и запирает на 1 минуту</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#eab308;"></div><div class="tarot-info"><div class="tarot-name">The Sun</div><div class="tarot-chance">5% · жёлтый</div><div class="tarot-effect">Восстанавливает 100% рассудка</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#f0f0f0;"></div><div class="tarot-info"><div class="tarot-name">The Moon</div><div class="tarot-chance">5% · белый</div><div class="tarot-effect">Снижает рассудок до 0%</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#fde68a;"></div><div class="tarot-info"><div class="tarot-name">The High Priestess</div><div class="tarot-chance">2% · светло-жёлтый</div><div class="tarot-effect">Воскрешает случайного мёртвого игрока</div></div></div>
+          <div class="tarot-card"><div class="tarot-dot" style="background:#444;border:1px solid #666;"></div><div class="tarot-info"><div class="tarot-name">The Hanged Man</div><div class="tarot-chance">1% · без цвета</div><div class="tarot-effect">Мгновенно убивает вытянувшего карту</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Обезьянья лапа -->
+    <div id="citem-paw" class="item-block">
+      <div class="item-block-header">
+        <div class="item-block-icon">🐾</div>
+        <div>
+          <div class="item-block-name">Обезьянья лапа</div>
+          <div class="item-block-sub">// MONKEY PAW · проклятый предмет</div>
+        </div>
+      </div>
+      <div class="item-block-photo"><img src="img2/item_paw.png" alt="Обезьянья лапа" data-caption="Обезьянья лапа" onclick="openLightbox(this)"></div>
+      <div class="item-block-body">
+        <div class="item-desc">Исполняет желания, но с риском негативных последствий. Количество желаний зависит от множителя награды: ×0–1.99 → 5, ×2–2.99 → 4, ×3+ → 3.</div>
+        <div class="item-desc">Невозможно загадать одно и то же желание несколько раз.</div>
+        <div class="item-usage-title">// использование</div>
+        <div class="item-usage-list">
+          <div class="item-usage-row"><div class="bullet"></div><div>Загадывать голосом или через текстовый интерфейс (<strong>ПКМ</strong>)</div></div>
+        </div>
+        <div class="item-usage-title" style="margin-top:14px;">// список желаний</div>
+        <div class="wish-list">
+          <div class="wish-row"><div class="wish-phrase">"Я хочу увидеть призрака"</div><div class="wish-effect">Призрак материализуется на 5 сек, затем <span style="color:var(--red)">начинается охота</span> · <span style="color:var(--amber)">зрение затуманено до конца охоты</span></div></div>
+          <div class="wish-row"><div class="wish-phrase">"Хочу активность"</div><div class="wish-effect">Удваивает активность призрака на 2 мин, но <span style="color:var(--red)">входная дверь заперта на 2 мин</span> · <span style="color:var(--amber)">щиток навсегда сломан</span></div></div>
+          <div class="wish-row"><div class="wish-phrase">"Хочу поймать призрака в ловушку"</div><div class="wish-effect">Призрак заперт в своей комнате на 1 мин, после — <span style="color:var(--red)">проклятая охота</span></div></div>
+          <div class="wish-row"><div class="wish-phrase">"Хочу вернуть рассудок"</div><div class="wish-effect">Рассудок <strong>каждого</strong> игрока принудительно → 50% (даже если было больше), но <span style="color:var(--amber)">скорость потери рассудка загадавшего ×1.5</span> · призрак сменит любимую комнату на случайную</div></div>
+          <div class="wish-row"><div class="wish-phrase">"Хочу быть в безопасности"</div><div class="wish-effect">Разбивает свет в комнате и открывает укрытие, но <span style="color:var(--red)">призрак слышит загадавшего и чувствует его активную электронику с любого расстояния</span> до конца контракта</div></div>
+          <div class="wish-row"><div class="wish-phrase">"Хочу уйти"</div><div class="wish-effect">Открывает входную дверь в любой момент (даже на охоте), но <span style="color:var(--amber)">5 сек стоишь на месте</span> · затем замедление ещё 5 сек · ухудшение зрения</div></div>
+          <div class="wish-row"><div class="wish-phrase">"Хочу оживить моего друга"</div><div class="wish-effect">Воскрешает случайного мёртвого игрока, но <span style="color:var(--red)">50% шанс мгновенной смерти загадавшего</span></div></div>
+          <div class="wish-row"><div class="wish-phrase">"Хочу знаний"</div><div class="wish-effect">Зачёркивает одну неверную улику в журнале, но <span style="color:var(--red)">начинается проклятая охота</span> · <span style="color:var(--amber)">слух и зрение ухудшены до конца контракта</span></div></div>
+          <div class="wish-row"><div class="wish-phrase">"Погода"</div><div class="wish-effect">Меняет погоду (дождь / снег / туман / ветер / ясно / рассвет), но <span style="color:var(--amber)">временное ослепление</span> · <span style="color:var(--amber)">−25% рассудка</span></div></div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /csec-items -->
+
+</div><!-- /cursed-main -->
+
+<!-- SIDE NAV -->
+<div class="cursed-nav" id="cursed-nav">
+  <div class="cursed-nav-header">// навигация</div>
+
+  <div class="cursed-nav-section">
+    <div class="cursed-nav-label">Карты</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-tanglewood')">6 Tanglewood Drive</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-willow')">13 Willow Street</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-ridgeview')">10 Ridgeview Court</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-edgefield')">42 Edgefield Road</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-bleasdale')">Bleasdale Farmhouse</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-grafton')">Grafton Farmhouse</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-woodwind')">Camp Woodwind</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-maple')">Maple Lodge Campsite</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-brownstone')">Brownstone High School</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-prison')">Prison</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-sunny')">Sunny Meadows</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-nells')">Nell's Diner</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-pointhope')">Point Hope</div>
+    <div class="cursed-nav-link" onclick="cnavTo('cmap-sunnyrestricted')">Sunny Meadows Restricted</div>
+  </div>
+
+  <div class="cursed-nav-section">
+    <div class="cursed-nav-label">Предметы</div>
+    <div class="cursed-nav-link" onclick="cnavTo('citem-voodoo')">🪆 Кукла вуду</div>
+    <div class="cursed-nav-link" onclick="cnavTo('citem-music')">🎵 Муз. шкатулка</div>
+    <div class="cursed-nav-link" onclick="cnavTo('citem-circle')">⭕ Магический круг</div>
+    <div class="cursed-nav-link" onclick="cnavTo('citem-ouija')">🔮 Доска Уиджи</div>
+    <div class="cursed-nav-link" onclick="cnavTo('citem-mirror')">🪞 Зачар. зеркало</div>
+    <div class="cursed-nav-link" onclick="cnavTo('citem-tarot')">🃏 Карты таро</div>
+    <div class="cursed-nav-link" onclick="cnavTo('citem-paw')">🐾 Обезьянья лапа</div>
+  </div>
+</div>
+
+</div><!-- /cursed-layout -->
+</div><!-- /wrapper -->
+</div><!-- /panel-cursed -->
+
+<!-- TIMER PANEL -->
+<div class="panel" id="panel-timer">
+<div class="wrapper" style="max-width:600px;margin:0 auto;padding-top:48px;">
+
+  <div class="eyebrow" style="margin-bottom:8px;">// СЕКУНДОМЕР</div>
+  <div style="font-size:13px;color:var(--muted);margin-bottom:32px;line-height:1.6;">
+    Помогает удобно отследить охоту обычного призрака, демона и духа.<br>
+    Звук на <span style="color:var(--amber);">60 сек</span> · <span style="color:var(--amber);">90 сек</span> · <span style="color:var(--red);">3 минуты</span>
+  </div>
+
+  <!-- Display -->
+  <div id="timer-display" style="
+    font-family:'JetBrains Mono',monospace;
+    font-size:clamp(64px,12vw,96px);
+    font-weight:700;
+    letter-spacing:0.05em;
+    color:var(--text);
+    text-align:center;
+    margin-bottom:12px;
+    transition:color 0.3s;
+  ">3:00</div>
+
+  <!-- Progress bar -->
+  <div style="background:var(--surface2);border-radius:8px;height:6px;margin-bottom:12px;overflow:hidden;">
+    <div id="timer-bar" style="height:100%;width:100%;background:var(--accent);border-radius:8px;transition:width 0.1s linear,background 0.3s;"></div>
+  </div>
+
+  <!-- Markers -->
+  <div style="position:relative;height:20px;margin-bottom:32px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);">
+    <span style="position:absolute;left:calc(100% - 100%);transform:translateX(0);">0:00</span>
+    <span id="marker-60" style="position:absolute;left:calc(60/180*100%);transform:translateX(-50%);color:var(--amber);">1:00</span>
+    <span id="marker-90" style="position:absolute;left:calc(90/180*100%);transform:translateX(-50%);color:var(--amber);">1:30</span>
+    <span style="position:absolute;right:0;">3:00</span>
+  </div>
+
+  <!-- Buttons -->
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;">
+    <button id="timer-btn-start" onclick="timerStart()" style="
+      background:var(--accent);color:#0b0d10;border:none;border-radius:10px;
+      padding:14px 40px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;
+      cursor:pointer;transition:opacity 0.15s;letter-spacing:0.04em;
+    ">▶ СТАРТ</button>
+    <button onclick="timerReset()" style="
+      background:var(--surface2);color:var(--text);border:0.5px solid var(--border-bright);
+      border-radius:10px;padding:14px 28px;font-family:'Syne',sans-serif;font-size:15px;
+      font-weight:700;cursor:pointer;transition:opacity 0.15s;letter-spacing:0.04em;
+    ">↺ СБРОС</button>
+  </div>
+
+  <!-- Log -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;">// события</div>
+  <div id="timer-log" style="background:var(--surface);border:0.5px solid var(--border-bright);border-radius:10px;padding:14px 16px;min-height:60px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);line-height:1.8;">
+    <span style="opacity:0.4;">— ожидание запуска —</span>
+  </div>
+
+</div>
+</div><!-- /panel-timer -->
+
+<!-- LIGHTBOX -->
+<div id="cursed-lightbox" onclick="closeLightbox()">
+  <div id="cursed-lb-close" onclick="closeLightbox()">✕</div>
+  <div id="cursed-lb-caption"></div>
+  <img id="cursed-lb-img" src="" alt="" onclick="event.stopPropagation()">
+  <button class="cursed-lb-arrow cursed-lb-prev" onclick="event.stopPropagation(); lbNav(-1)">&#8592;</button>
+  <button class="cursed-lb-arrow cursed-lb-next" onclick="event.stopPropagation(); lbNav(1)">&#8594;</button>
+</div>
+
 <script>
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1520,6 +2353,235 @@ function resizePatternPanel() {
 }
 resizePatternPanel();
 window.addEventListener('resize', resizePatternPanel);
+
+// ===== CURSED NAV =====
+function cnavTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const headerH = document.querySelector('.site-header').getBoundingClientRect().height;
+  const top = el.getBoundingClientRect().top + window.scrollY - headerH - 16;
+  window.scrollTo({ top, behavior: 'smooth' });
+  // highlight active
+  document.querySelectorAll('.cursed-nav-link').forEach(l => l.classList.remove('cnav-active'));
+  const links = document.querySelectorAll('.cursed-nav-link');
+  links.forEach(l => { if (l.getAttribute('onclick') === `cnavTo('${id}')`) l.classList.add('cnav-active'); });
+}
+
+// Auto-highlight nav on scroll inside cursed panel
+window.addEventListener('scroll', () => {
+  if (!document.getElementById('panel-cursed').classList.contains('active')) return;
+  const headerH = document.querySelector('.site-header').getBoundingClientRect().height + 20;
+  const sections = ['cmap-tanglewood','cmap-willow','cmap-ridgeview','cmap-edgefield',
+    'cmap-bleasdale','cmap-grafton','cmap-woodwind','cmap-maple','cmap-brownstone',
+    'cmap-prison','cmap-sunny','cmap-nells','cmap-pointhope','cmap-sunnyrestricted',
+    'citem-voodoo','citem-music','citem-circle','citem-ouija','citem-mirror','citem-tarot','citem-paw'];
+  let current = null;
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (el.getBoundingClientRect().top <= headerH) current = id;
+  }
+  document.querySelectorAll('.cursed-nav-link').forEach(l => {
+    const m = l.getAttribute('onclick') && l.getAttribute('onclick').match(/cnavTo\('(.+?)'\)/);
+    if (m) l.classList.toggle('cnav-active', m[1] === current);
+  });
+}, { passive: true });
+
+// ===== MAP CAROUSELS =====
+const carouselState = {};
+const carouselMaps = ['tanglewood','willow','ridgeview','edgefield','bleasdale','grafton','woodwind','maple','brownstone','prison','sunny','nells','pointhope','sunnyrestricted','tarot'];
+const carouselCaptionsMap = {
+  tarot: ['Карты таро','The Tower','The Wheel of Fortune','The Fool','The Devil','Death','The Hermit','The Sun','The Moon','The High Priestess','The Hanged Man'],
+  _default: ['Карта дома','Кукла вуду','Муз. шкатулка','Магический круг','Доска Уиджи','Зачар. зеркало','Карты таро','Обезьянья лапка']
+};
+
+function carouselInit(id) {
+  carouselState[id] = 0;
+  const captions = carouselCaptionsMap[id] || carouselCaptionsMap._default;
+  const slides = document.querySelectorAll('#car-' + id + ' .map-carousel-slide img');
+  slides.forEach((img, i) => { img.dataset.caption = captions[i] || ''; });
+  const count = slides.length;
+  const dotsEl = document.getElementById('dots-' + id);
+  if (!dotsEl) return;
+  dotsEl.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const d = document.createElement('span');
+    d.className = 'map-carousel-dot' + (i === 0 ? ' active' : '');
+    d.onclick = (function(idx){ return function(){ carouselGoTo(id, idx); }; })(i);
+    dotsEl.appendChild(d);
+  }
+}
+
+function carouselGoTo(id, idx) {
+  const count = document.querySelectorAll('#car-' + id + ' .map-carousel-slide').length;
+  carouselState[id] = ((idx % count) + count) % count;
+  const track = document.querySelector('#car-' + id + ' .map-carousel-track');
+  if (track) track.style.transform = 'translateX(-' + (carouselState[id] * 100) + '%)';
+  const dots = document.querySelectorAll('#dots-' + id + ' .map-carousel-dot');
+  dots.forEach((d, i) => d.classList.toggle('active', i === carouselState[id]));
+}
+
+function carouselMove(id, dir) {
+  carouselGoTo(id, (carouselState[id] || 0) + dir);
+}
+
+carouselMaps.forEach(carouselInit);
+
+// ===== LIGHTBOX =====
+let lbSrcs = [];
+let lbCaptions = [];
+let lbIndex = 0;
+
+function openLightbox(img) {
+  // Collect all slides from the parent carousel, or just this single img
+  const carousel = img.closest('.map-carousel');
+  if (carousel) {
+    const slides = carousel.querySelectorAll('.map-carousel-slide img');
+    lbSrcs = Array.from(slides).map(i => i.src);
+    lbCaptions = Array.from(slides).map(i => i.dataset.caption || '');
+    lbIndex = Array.from(slides).indexOf(img);
+    if (lbIndex === -1) lbIndex = 0;
+  } else {
+    lbSrcs = [img.src];
+    lbCaptions = [img.dataset.caption || ''];
+    lbIndex = 0;
+  }
+  lbRender();
+  document.getElementById('cursed-lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbRender() {
+  document.getElementById('cursed-lb-img').src = lbSrcs[lbIndex];
+  document.getElementById('cursed-lb-caption').textContent = lbCaptions[lbIndex] || '';
+  const single = lbSrcs.length <= 1;
+  document.querySelector('.cursed-lb-prev').style.display = single ? 'none' : '';
+  document.querySelector('.cursed-lb-next').style.display = single ? 'none' : '';
+}
+
+function lbNav(dir) {
+  lbIndex = ((lbIndex + dir) + lbSrcs.length) % lbSrcs.length;
+  lbRender();
+}
+
+function closeLightbox() {
+  document.getElementById('cursed-lightbox').classList.remove('open');
+  document.getElementById('cursed-lb-img').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('cursed-lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+
+// ===== TIMER =====
+const TIMER_TOTAL = 180;
+const TIMER_BEEPS = [
+  { at: 60,  src: 'song/beep.mp3',  label: '1:00 — ⚡ 60 секунд' },
+  { at: 90,  src: 'song/beep.mp3',  label: '1:30 — ⚡ 90 секунд' },
+  { at: 180, src: 'song/beep.mp3', label: '3:00 — 🔴 Три минуты!' },
+];
+
+let timerInterval = null;
+let timerElapsed = 0;
+let timerRunning = false;
+const timerFired = new Set();
+
+function timerFormat(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function timerUpdateDisplay() {
+  const remaining = TIMER_TOTAL - timerElapsed;
+  const display = document.getElementById('timer-display');
+  const bar = document.getElementById('timer-bar');
+
+  display.textContent = timerFormat(remaining);
+
+  const pct = (timerElapsed / TIMER_TOTAL) * 100;
+  bar.style.width = (100 - pct) + '%';
+
+  // Colour changes
+  if (timerElapsed >= 180) {
+    display.style.color = 'var(--red)';
+    bar.style.background = 'var(--red)';
+  } else if (timerElapsed >= 90) {
+    display.style.color = 'var(--amber)';
+    bar.style.background = 'var(--amber)';
+  } else if (timerElapsed >= 60) {
+    display.style.color = 'var(--amber)';
+    bar.style.background = 'var(--amber)';
+  } else {
+    display.style.color = 'var(--text)';
+    bar.style.background = 'var(--accent)';
+  }
+}
+
+function timerPlaySound(src) {
+  try {
+    const audio = new Audio(src);
+    audio.play();
+  } catch(e) {}
+}
+
+function timerLog(msg) {
+  const log = document.getElementById('timer-log');
+  const line = document.createElement('div');
+  line.style.color = 'var(--text)';
+  line.textContent = msg;
+  if (log.querySelector('span')) log.innerHTML = '';
+  log.appendChild(line);
+}
+
+function timerTick() {
+  timerElapsed++;
+  timerUpdateDisplay();
+
+  for (const beep of TIMER_BEEPS) {
+    if (timerElapsed === beep.at && !timerFired.has(beep.at)) {
+      timerFired.add(beep.at);
+      timerPlaySound(beep.src);
+      timerLog(beep.label);
+    }
+  }
+
+  if (timerElapsed >= TIMER_TOTAL) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    document.getElementById('timer-btn-start').textContent = '▶ СТАРТ';
+  }
+}
+
+function timerStart() {
+  if (timerElapsed >= TIMER_TOTAL) return;
+  const btn = document.getElementById('timer-btn-start');
+  if (timerRunning) {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    btn.textContent = '▶ СТАРТ';
+  } else {
+    timerRunning = true;
+    btn.textContent = '⏸ ПАУЗА';
+    timerInterval = setInterval(timerTick, 1000);
+  }
+}
+
+function timerReset() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerElapsed = 0;
+  timerFired.clear();
+  document.getElementById('timer-btn-start').textContent = '▶ СТАРТ';
+  document.getElementById('timer-display').textContent = '3:00';
+  document.getElementById('timer-display').style.color = 'var(--text)';
+  document.getElementById('timer-bar').style.width = '100%';
+  document.getElementById('timer-bar').style.background = 'var(--accent)';
+  document.getElementById('timer-log').innerHTML = '<span style="opacity:0.4;">— ожидание запуска —</span>';
+}
 </script>
 </body>
 </html>
