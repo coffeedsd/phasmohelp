@@ -890,6 +890,114 @@
     .cursed-nav { position: static; }
     .ouija-row { grid-template-columns: 1fr; }
   }
+
+  /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+  @media (max-width: 600px) {
+    /* Header */
+    .site-header { padding: 0 10px; }
+    h1 { font-size: 22px; }
+    .eyebrow { font-size: 10px; }
+    .header-inner { gap: 10px; padding: 10px 0 0; }
+
+    /* Tabs — горизонтальная прокрутка */
+    .tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
+      padding-bottom: 0;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      padding: 10px 14px;
+      font-size: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Wrapper */
+    .wrapper { padding: 14px 10px 80px; }
+
+    /* Stats — 2 колонки */
+    .stats { gap: 8px; }
+    .stat-card { min-width: calc(50% - 4px); padding: 10px 12px; }
+    .stat-value { font-size: 16px; }
+
+    /* Controls — поиск и фильтры в колонку */
+    .controls { flex-direction: column; gap: 8px; }
+    .search-wrap { width: 100%; }
+    #search, #search-feature { width: 100%; box-sizing: border-box; }
+    .filter-btns { gap: 5px; }
+    .filter-btn { font-size: 11px; padding: 6px 10px; }
+
+    /* Ghost grid — 1 колонка */
+    .ghost-grid { grid-template-columns: 1fr; gap: 8px; }
+
+    /* Cards */
+    .ghost-name { font-size: 17px; }
+    .info-line { font-size: 12px; }
+
+    /* Table — горизонтальный скролл */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { min-width: 500px; }
+    .td-note { max-width: 200px; font-size: 11px; }
+    thead th { padding: 10px 12px; }
+    td { padding: 10px 12px; }
+
+    /* Pattern grid — 3 колонки вместо 9 */
+    .pattern-grid {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: unset;
+      gap: 6px;
+    }
+    .pattern-name { font-size: 10px; }
+    .pattern-card { padding-top: 10px; }
+
+    /* Clue panel */
+    .clue-panel { position: static; }
+    .clue-btn { flex: 1 1 130px; }
+    .clue-btn-list { flex-direction: row; flex-wrap: wrap; }
+
+    /* Cursed panel */
+    .cursed-section-title { font-size: 20px; }
+    .cursed-layout { grid-template-columns: 1fr; }
+    .cursed-nav { position: static; }
+
+    /* Tarot grid */
+    .tarot-grid { grid-template-columns: 1fr; }
+
+    /* Ouija */
+    .ouija-row { grid-template-columns: 1fr; gap: 4px; }
+
+    /* Wish */
+    .wish-row { grid-template-columns: 1fr; gap: 4px; }
+    .wish-phrase { white-space: normal; }
+
+    /* Lightbox arrows */
+    .cursed-lb-prev { left: 6px; }
+    .cursed-lb-next { right: 6px; }
+    .cursed-lb-arrow { width: 38px; height: 38px; font-size: 16px; }
+    #cursed-lb-caption { font-size: 14px; }
+
+    /* Map carousel */
+    .map-carousel-btn { width: 34px; height: 34px; font-size: 16px; }
+
+    /* Timer */
+    .timer-wrap { padding: 16px 10px; }
+
+    /* Legend */
+    .legend { gap: 8px; }
+    .legend-item { font-size: 9px; }
+  }
+
+  /* Средний мобиль / планшет */
+  @media (max-width: 768px) and (min-width: 601px) {
+    .ghost-grid { grid-template-columns: 1fr; }
+    .pattern-grid {
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: unset;
+    }
+  }
 </style>
 </head>
 <body>
